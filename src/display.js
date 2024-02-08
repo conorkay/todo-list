@@ -1,4 +1,8 @@
 import './style.css';
-import printMe from './index.js';
 
-printMe();
+export const displayController = (function () {
+  function renderToDos() {
+    console.log('renderToDos');
+  }
+  return { renderToDos };
+})();
