@@ -4,10 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/index.js',
+    index: './src/index.js',
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: 'app.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
@@ -17,7 +17,6 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      { test: /\.(png|svg|jpg|jpeg|gif)$/i, type: 'asset/resource' },
     ],
   },
   devtool: 'source-map',
@@ -26,12 +25,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'ToDo',
       template: './src/index.html',
       filename: 'index.html',
       inject: 'body',
     }),
   ],
-  optimization: {
-    runtimeChunk: 'single',
-  },
 };

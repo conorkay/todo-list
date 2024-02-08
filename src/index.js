@@ -1,5 +1,5 @@
 import './style.css';
-import displayController from './display.js';
+import { displayController } from './display';
 
 // Element selectors
 // Button that opens form for adding new task/project
@@ -13,27 +13,14 @@ const formContainer = document.getElementById('form-container');
 
 // Event Listeners for form/overlay
 openFormBtn.addEventListener('click', function (e) {
-  formOn();
+  displayController.formOn(formContainer);
 });
 ovrly.addEventListener('click', function () {
-  formOff();
+  displayController.formOff(formContainer);
 });
 cross.addEventListener('click', function () {
-  formOff();
+  displayController.formOff(formContainer);
 });
-
-displayController.renderToDos();
-// Enables the form and overlay
-function formOn() {
-  ovrly.style.display = 'block';
-  formContainer.style.display = 'block';
-}
-
-// Disables the form and overlay
-function formOff() {
-  ovrly.style.display = 'none';
-  formContainer.style.display = 'none';
-}
 
 // to-do constructor
 function createTask(title, description, dueDate, priority) {
@@ -50,5 +37,3 @@ function createProject(title, description, dueDate, priority, taskList) {
   this.priority = priority;
   this.taskList = taskList;
 }
-
-const listManager = function () {};
