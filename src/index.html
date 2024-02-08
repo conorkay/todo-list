@@ -10,26 +10,39 @@
 
     <!-- Overlay and form for creating a new task/project-->
     <div id="ovrly"></div>
+
     <div id="form-container">
-      <button id="cross">&cross;</button>
-      <h2>New Task</h2>
-      <form id="form">
-        <input
-          required
-          type="text"
-          placeholder="Title: Walk the dog"
-          class="text"
-          id="title"
-          name="title"
-        />
-        <input
-          type="text"
-          placeholder="Details: Outside"
-          name="details"
-          id="details"
-        />
-        <input type="button" value="Create Task" />
-      </form>
+      <div class="form-header">
+        <h2 class="form-h2">Create New...</h2>
+        <button id="cross">&cross;</button>
+      </div>
+
+      <div class="form-grid-container">
+        <div class="form-sidebar"></div>
+        <form id="form">
+          <input
+            required
+            type="text"
+            placeholder="Title: Walk the dog"
+            id="title"
+            name="title"
+            class="input"
+            maxlength="60"
+          />
+          <textarea
+            name="details"
+            id="details"
+            class="input"
+            maxlength="300"
+            rows="6"
+            placeholder="Details: At the park"
+          >
+          </textarea>
+          <div id="form-button-container">
+            <input type="button" value="Create Task" />
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- The main grid-->
