@@ -10,6 +10,9 @@ const ovrly = document.getElementById('ovrly');
 const cross = document.getElementById('cross');
 // Form container element
 const formContainer = document.getElementById('form-container');
+// Form text fields
+const inputFields = document.querySelectorAll('.textInput');
+console.log(inputFields);
 
 // Event Listeners for form/overlay
 openFormBtn.addEventListener('click', function (e) {
@@ -17,9 +20,11 @@ openFormBtn.addEventListener('click', function (e) {
 });
 ovrly.addEventListener('click', function () {
   displayController.formOff(formContainer);
+  displayController.clearInput(inputFields);
 });
 cross.addEventListener('click', function () {
   displayController.formOff(formContainer);
+  displayController.clearInput(inputFields);
 });
 
 // to-do constructor
