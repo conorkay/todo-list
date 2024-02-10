@@ -12,7 +12,6 @@ const cross = document.getElementById('cross');
 const formContainer = document.getElementById('form-container');
 // Form text fields
 const inputFields = document.querySelectorAll('.textInput');
-console.log(inputFields);
 
 // Event Listeners for form/overlay
 openFormBtn.addEventListener('click', function (e) {

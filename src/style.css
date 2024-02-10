@@ -115,7 +115,7 @@ h2 {
   width: 100%;
 }
 
-.input {
+.textInput {
   border: 0;
   background-color: #f6f6f6;
   width: 90%;
@@ -125,6 +125,7 @@ h2 {
 #form-button-container {
   width: 100%;
   display: flex;
+  height: auto;
 }
 
 #title {
@@ -156,4 +157,32 @@ h2 {
   background-color: #f6f6f6;
   color: #121212;
   border: 2px solid #a5c9ff;
+}
+
+input[type='radio'] {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+label {
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #000;
+}
+
+#lowLabel {
+  background-color: #7bb662;
+}
+
+#midLabel {
+  background-color: #ffd301;
+}
+
+#highLabel {
+  background-color: #e03c32;
+}
+
+input[type='radio']:checked + label {
+  filter: brightness(85%);
 }

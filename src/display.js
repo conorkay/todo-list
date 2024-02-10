@@ -25,7 +25,7 @@ export const displayController = (function () {
     ovrly.style.display = 'none';
   }
 
-  // Clears form input
+  // Clears form input, takes nodelist param
   function clearInput(inputFields) {
     if (inputFields.length === 0) {
       return;

@@ -38,7 +38,24 @@
             placeholder="Details: At the park"
           ></textarea>
           <div id="form-button-container">
-            <input type="button" value="Create Task" />
+            <div id="radio-container">
+              <input
+                required
+                type="radio"
+                id="low"
+                name="priority"
+                value="low"
+              />
+              <label for="low" id="lowLabel">Low</label>
+
+              <input type="radio" id="mid" name="priority" value="mid" />
+              <label for="mid" id="midLabel">Mid</label>
+
+              <input type="radio" id="high" name="priority" value="high" />
+              <label for="high" id="highLabel">High</label>
+            </div>
+
+            <input type="button" value="Create ToDo" />
           </div>
         </form>
       </div>
