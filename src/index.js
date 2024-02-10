@@ -1,5 +1,5 @@
 import './style.css';
-import { displayController } from './display';
+import { displayController } from './todoFunctions';
 
 // Element selectors
 // Button that opens form for adding new task/project

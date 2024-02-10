@@ -126,6 +126,7 @@ h2 {
   width: 100%;
   display: flex;
   height: auto;
+  gap: 5px;
 }
 
 #title {
@@ -160,9 +161,11 @@ h2 {
 }
 
 input[type='radio'] {
-  visibility: hidden;
+  opacity: 0;
   height: 0;
   width: 0;
+  position: absolute;
+  pointer-events: none;
 }
 
 label {
