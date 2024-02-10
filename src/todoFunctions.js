@@ -38,3 +38,5 @@ export const displayController = (function () {
 
   return { renderToDos, formOn, formOff, clearInput };
 })();
+
+export const todoManager = (function () {})();

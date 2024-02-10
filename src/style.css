@@ -162,30 +162,50 @@ h2 {
 
 input[type='radio'] {
   opacity: 0;
-  height: 0;
-  width: 0;
-  position: absolute;
+  height: 1px;
+  width: 1px;
+  position: relative;
   pointer-events: none;
+  padding: 0px;
+  margin: 0px;
+  left: 5.9rem;
 }
 
 label {
   padding: 5px 10px;
   cursor: pointer;
-  color: #000;
+  border: 3px solid;
 }
 
 #lowLabel {
-  background-color: #7bb662;
+  background-color: white;
+  color: #7bb662;
+  border-color: #7bb662;
 }
 
 #midLabel {
-  background-color: #ffd301;
+  background-color: white;
+  color: #ffd301;
+  border-color: #ffd301;
 }
 
 #highLabel {
-  background-color: #e03c32;
+  background-color: white;
+  color: #e03c32;
+  border-color: #e03c32;
 }
 
-input[type='radio']:checked + label {
-  filter: brightness(85%);
+input[type='radio']:checked + #lowLabel {
+  color: white;
+  background-color: #7bb662;
+}
+
+input[type='radio']:checked + #midLabel {
+  color: white;
+  background-color: #ffd301;
+}
+
+input[type='radio']:checked + #highLabel {
+  color: white;
+  background-color: #e03c32;
 }
