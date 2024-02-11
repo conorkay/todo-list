@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <title>Todo List</title>
   </head>
   <body>
@@ -19,7 +24,7 @@
 
       <div class="form-grid-container">
         <div class="form-sidebar"></div>
-        <form id="form">
+        <form id="newTodoForm">
           <input
             required
             type="text"
@@ -44,15 +49,15 @@
                 type="radio"
                 id="low"
                 name="priority"
-                value="low"
+                value="Low"
               />
-              <label for="low" id="lowLabel">Low</label>
+              <label for="low" class="lowLabel">Low</label>
 
-              <input type="radio" id="mid" name="priority" value="mid" />
-              <label for="mid" id="midLabel">Mid</label>
+              <input type="radio" id="mid" name="priority" value="Mid" />
+              <label for="mid" class="midLabel">Mid</label>
 
-              <input type="radio" id="high" name="priority" value="high" />
-              <label for="high" id="highLabel">High</label>
+              <input type="radio" id="high" name="priority" value="High" />
+              <label for="high" class="highLabel">High</label>
             </div>
 
             <button type="submit">Create ToDo</button>
@@ -68,7 +73,21 @@
       </div>
 
       <!-- Flex containter that holds the to-do items-->
-      <div id="list-container"></div>
+      <div id="list-container">
+        <div class="todoItem">
+          <button class="todoCheckBtn">
+            <i class="fa fa-check fa-lg"></i>
+          </button>
+
+          <p class="todoTitle">title</p>
+          <p class="todoPriority">priority</p>
+          <button class="todoDetailBtn">Details</button>
+
+          <button class="todoDeleteBtn">
+            <i class="fa fa-trash fa-lg"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </body>
 </html>
