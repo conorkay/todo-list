@@ -13,7 +13,7 @@ const cross = document.getElementById('cross');
 // Form container element
 const formContainer = document.getElementById('form-container');
 // Form text fields
-const inputFields = document.querySelectorAll('.textInput');
+const inputFields = document.querySelectorAll('.textInput, .dateInput');
 // Container for list of todo elements
 const listContainer = document.getElementById('list-container');
 
@@ -35,14 +35,13 @@ newTodoForm.addEventListener('submit', (event) => {
 
   console.log(event.currentTarget.title.value);
   console.log(event.currentTarget.details.value);
+  console.log(event.currentTarget.date.value);
   console.log(event.currentTarget.priority.value);
-
-  let tempDate = 0;
 
   let newTodo = new todoManager.createTodo(
     event.currentTarget.title.value,
     event.currentTarget.details.value,
-    tempDate,
+    event.currentTarget.date.value,
     event.currentTarget.priority.value
   );
 

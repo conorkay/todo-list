@@ -81,11 +81,6 @@ h2 {
   gap: 10px;
 }
 
-.form-sidebar {
-  /*border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;*/
-}
-
 #ovrly {
   background-color: #000;
   height: 100%;
@@ -126,6 +121,21 @@ h2 {
   background-color: #f6f6f6;
   width: 90%;
   resize: none;
+}
+
+#form-date-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 1.5em;
+  width: 100%;
+  gap: 5px;
+}
+
+#date-container-text {
+  height: 100%;
+  margin: 0;
+  margin-left: 5px;
 }
 
 #form-button-container {
