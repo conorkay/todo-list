@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const displayController = (function () {
   function renderToDos() {
     console.log('renderToDos');
@@ -57,9 +59,10 @@ export const displayController = (function () {
     // Delete button with icon
     const checkBtn = document.createElement('button');
     checkBtn.classList.add('todoCheckBtn');
-
     checkBtn.innerHTML = '<i class="fa fa-check fa-lg"></i>';
     newDiv.appendChild(checkBtn);
+    addCheckedListener(checkBtn);
+    addStrikeListener(checkBtn);
 
     // Todo title
     const title = document.createElement('p');
@@ -90,11 +93,41 @@ export const displayController = (function () {
     // Delete button with icon
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('todoDeleteBtn');
-
     deleteBtn.innerHTML = '<i class="fa fa-trash fa-lg"></i>';
     newDiv.appendChild(deleteBtn);
+    addRemoveListener(deleteBtn);
 
+    // Link object to dom element
+    newDiv.todoObj = todo;
+    // Append to list container
     container.appendChild(newDiv);
+  }
+
+  // Deletes element from DOM
+  function removeElement(elem) {
+    elem.remove();
+  }
+
+  // Adds a 'click' listener that deletes the parent element from DOM
+  function addRemoveListener(elem) {
+    elem.addEventListener('click', function (e) {
+      removeElement(elem.parentNode);
+    });
+  }
+
+  // Adds a 'click' listener that toggles style for completed task
+  function addCheckedListener(elem) {
+    elem.addEventListener('click', function (e) {
+      elem.parentNode.classList.toggle('todoChecked');
+    });
+  }
+
+  // Adds 'click' listener that toggles strikethrough text
+  function addStrikeListener(elem) {
+    elem.addEventListener('click', function (e) {
+      // Selects second child of parent todoItem
+      elem.parentNode.children[1].classList.toggle('todoTitleChecked');
+    });
   }
 
   return { renderToDos, formOn, formOff, clearInput, createTodoElem };
