@@ -245,39 +245,68 @@ input[type='radio']:checked + .highLabel {
   filter: brightness(85%);
 }
 
+.inter-container-one {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 100%;
+  height: 100%;
+  gap: 10px;
+}
+.inter-container-two {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 100%;
+  gap: 10px;
+}
+
 .todoTitle {
   text-decoration: none;
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .todoTitleChecked {
   text-decoration: line-through;
 }
 
-.prioLow {
+.prioContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.prioLow,
+.prioMid,
+.prioHigh {
   padding: 5px 10px;
   border: 3px solid;
   color: white;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prioLow {
   background-color: #7bb662;
   border-color: #7bb662;
 }
 .prioMid {
-  padding: 5px 10px;
-  border: 3px solid;
-  color: white;
   background-color: #ffd301;
   border-color: #ffd301;
 }
 
 .prioHigh {
-  padding: 5px 10px;
-  border: 3px solid;
   border-color: #e03c32;
-  color: white;
   background-color: #e03c32;
 }
 
 .todoDeleteBtn,
-.todoCheckBtn {
+.todoCheckBtn,
+.todoDetailBtn {
   aspect-ratio: 1 / 1;
   height: 100%;
   background-color: #3d3d3d;
@@ -286,10 +315,28 @@ input[type='radio']:checked + .highLabel {
 
 .todoDeleteBtn {
   color: #e03c32;
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.todoDetailBtn {
+  color: white;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.dueDate {
+  grid-column: 2;
+  grid-row: 1;
+  width: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .todoCheckBtn {
   color: #7bb662;
+  grid-column: 1;
 }
 
 .todoDeleteBtn:hover,

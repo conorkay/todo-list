@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 export const displayController = (function () {
   function renderToDos() {
@@ -56,21 +56,22 @@ export const displayController = (function () {
     const newDiv = document.createElement('div');
     newDiv.classList.add('todoItem');
 
-    // Delete button with icon
+    // First container
+    const containerOne = document.createElement('div');
+    containerOne.classList.add('inter-container-one');
+    newDiv.appendChild(containerOne);
+
+    // Check button with icon
     const checkBtn = document.createElement('button');
     checkBtn.classList.add('todoCheckBtn');
     checkBtn.innerHTML = '<i class="fa fa-check fa-lg"></i>';
-    newDiv.appendChild(checkBtn);
+    containerOne.appendChild(checkBtn);
     addCheckedListener(checkBtn);
     addStrikeListener(checkBtn);
 
-    // Todo title
-    const title = document.createElement('p');
-    title.classList.add('todoTitle');
-    title.textContent = todo.title;
-    newDiv.appendChild(title);
-
     // Priority div
+    const prioContainer = document.createElement('div');
+    prioContainer.classList.add('prioContainer');
     const priority = document.createElement('div');
     if (todo.priority === 'Low') {
       priority.classList.add('prioLow');
@@ -82,19 +83,37 @@ export const displayController = (function () {
       console.log('prio error');
     }
     priority.textContent = todo.priority;
-    newDiv.appendChild(priority);
+    containerOne.appendChild(prioContainer);
+    prioContainer.appendChild(priority);
+
+    // Todo title
+    const title = document.createElement('p');
+    title.classList.add('todoTitle');
+    title.textContent = todo.title;
+    containerOne.appendChild(title);
+
+    // Second container
+    const containerTwo = document.createElement('div');
+    containerTwo.classList.add('inter-container-two');
+    newDiv.appendChild(containerTwo);
 
     // Detail button (for displaying date/details)
     const detailBtn = document.createElement('button');
     detailBtn.classList.add('todoDetailBtn');
     detailBtn.innerText = 'Details';
-    newDiv.appendChild(detailBtn);
+    containerTwo.appendChild(detailBtn);
+
+    // Due Date
+    const dueDate = document.createElement('div');
+    dueDate.classList.add('dueDate');
+    dueDate.textContent = convertDate(todo.dueDate);
+    containerTwo.appendChild(dueDate);
 
     // Delete button with icon
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('todoDeleteBtn');
     deleteBtn.innerHTML = '<i class="fa fa-trash fa-lg"></i>';
-    newDiv.appendChild(deleteBtn);
+    containerTwo.appendChild(deleteBtn);
     addRemoveListener(deleteBtn);
 
     // Link object to dom element
@@ -103,22 +122,18 @@ export const displayController = (function () {
     container.appendChild(newDiv);
   }
 
-  // Deletes element from DOM
-  function removeElement(elem) {
-    elem.remove();
-  }
-
-  // Adds a 'click' listener that deletes the parent element from DOM
+  // Adds a 'click' listener that deletes the parent's parent element from DOM
   function addRemoveListener(elem) {
     elem.addEventListener('click', function (e) {
-      removeElement(elem.parentNode);
+      elem.parentNode.parentNode.remove();
     });
   }
 
   // Adds a 'click' listener that toggles style for completed task
   function addCheckedListener(elem) {
     elem.addEventListener('click', function (e) {
-      elem.parentNode.classList.toggle('todoChecked');
+      elem.parentNode.parentNode.classList.toggle('todoChecked');
+      console.log('checked');
     });
   }
 
@@ -126,8 +141,15 @@ export const displayController = (function () {
   function addStrikeListener(elem) {
     elem.addEventListener('click', function (e) {
       // Selects second child of parent todoItem
-      elem.parentNode.children[1].classList.toggle('todoTitleChecked');
+      elem.parentNode.children[2].classList.toggle('todoTitleChecked');
     });
+  }
+
+  // Converts a date to output format
+  function convertDate(date) {
+    var newDate = format(parseISO(date), 'MMM d');
+
+    return newDate;
   }
 
   return { renderToDos, formOn, formOff, clearInput, createTodoElem };

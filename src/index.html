@@ -51,6 +51,18 @@
               class="dateInput"
               type="date"
             />
+            <script>
+              // TODO: make the min work
+              var date = new Date();
+              today =
+                date.getFullYear() +
+                '-' +
+                date.getMonth() +
+                '-' +
+                date.getDate();
+              document.getElementById('date').min = today;
+              console.log(today);
+            </script>
           </div>
           <div id="form-button-container">
             <div id="radio-container">
@@ -85,17 +97,21 @@
       <!-- Flex containter that holds the to-do items-->
       <div id="list-container">
         <div class="todoItem">
-          <button class="todoCheckBtn">
-            <i class="fa fa-check fa-lg"></i>
-          </button>
+          <div class="inter-container-one">
+            <button class="todoCheckBtn">
+              <i class="fa fa-check fa-lg"></i>
+            </button>
 
-          <p class="todoTitle">title</p>
-          <p class="todoPriority">priority</p>
-          <button class="todoDetailBtn">Details</button>
-
-          <button class="todoDeleteBtn">
-            <i class="fa fa-trash fa-lg"></i>
-          </button>
+            <p class="todoPriority">priority</p>
+            <p class="todoTitle">title</p>
+          </div>
+          <div class="inter-container-two">
+            <button class="todoDetailBtn">Details</button>
+            <p class="dueDate">date</p>
+            <button class="todoDeleteBtn">
+              <i class="fa fa-trash fa-lg"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
