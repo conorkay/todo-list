@@ -4,6 +4,10 @@ import { format, parseISO } from 'date-fns';
 const detailTitle = document.querySelector('#titleDisplay');
 // Detail display details
 const detailDescription = document.querySelector('#descriptionDisplay');
+// Detail display due date
+const detailDate = document.getElementById('dateDisplay');
+// Detail priority display
+const detailPriority = document.getElementById('prioDisplay');
 
 export const displayController = (function () {
   function renderToDos() {
@@ -173,6 +177,21 @@ export const displayController = (function () {
     console.log(todoElem);
     detailTitle.textContent = todoElem.todoObj.title;
     detailDescription.textContent = todoElem.todoObj.description;
+    detailDate.textContent = format(
+      parseISO(todoElem.todoObj.dueDate),
+      'MMMM d, yyyy'
+    );
+
+    if (todoElem.todoObj.priority === 'Low') {
+      detailPriority.classList.add('prioLow');
+      detailPriority.textContent = 'Low';
+    } else if (todoElem.todoObj.priority === 'Mid') {
+      detailPriority.classList.add('prioMid');
+      detailPriority.textContent = 'Mid';
+    } else if (todoElem.todoObj.priority === 'High') {
+      detailPriority.classList.add('prioHigh');
+      detailPriority.textContent = 'High';
+    }
   }
 
   return {

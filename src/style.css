@@ -105,6 +105,7 @@ h2 {
   margin-left: 10px;
   margin-right: 10px;
   gap: 5px;
+  align-items: center;
 }
 
 #newTodoForm {
@@ -222,7 +223,7 @@ input[type='radio'] {
   pointer-events: none;
   padding: 0px;
   margin: 0px;
-  left: 5.9rem;
+  left: 1.9rem;
 }
 
 #radio-container {
@@ -248,12 +249,14 @@ label {
   background-color: white;
   color: #ffd301;
   border-color: #ffd301;
+  margin-left: 5px;
 }
 
 .highLabel {
   background-color: white;
   color: #e03c32;
   border-color: #e03c32;
+  margin-left: 5px;
 }
 
 input[type='radio']:checked + .lowLabel {

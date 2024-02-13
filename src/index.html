@@ -96,18 +96,20 @@
       </div>
       <div id="detailContainer">
         <div id="titleDisplayContainer">
-          <p>Title:</p>
+          <p style="font-weight: bold">Title:</p>
           <p id="titleDisplay"></p>
         </div>
         <div id="descriptionDisplayContainer">
-          <p>Description:</p>
+          <p style="font-weight: bold">Description:</p>
           <p id="descriptionDisplay"></p>
         </div>
         <div id="dateDisplayContainer">
-          <p>Due Date:</p>
+          <p style="font-weight: bold">Due Date:</p>
+          <p id="dateDisplay"></p>
         </div>
         <div id="prioDisplayContainer">
-          <p>Priority:</p>
+          <p style="font-weight: bold">Priority:</p>
+          <div id="prioDisplay" style="height: 1em"></div>
         </div>
       </div>
     </dialog>
@@ -119,27 +121,7 @@
       </div>
 
       <!-- Flex containter that holds the to-do items-->
-      <div id="list-container">
-        <div class="todoItem">
-          <div class="inter-container-one">
-            <button class="todoCheckBtn">
-              <i class="fa fa-check fa-lg"></i>
-            </button>
-
-            <p class="todoPriority">priority</p>
-            <p class="todoTitle">title</p>
-          </div>
-          <div class="inter-container-two">
-            <div class="detailBtnContainer">
-              <button class="todoDetailBtn">Details</button>
-            </div>
-            <p class="dueDate">date</p>
-            <button class="todoDeleteBtn">
-              <i class="fa fa-trash fa-lg"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+      <div id="list-container"></div>
     </div>
   </body>
 </html>
