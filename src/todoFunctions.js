@@ -99,9 +99,12 @@ export const displayController = (function () {
 
     // Detail button (for displaying date/details)
     const detailBtn = document.createElement('button');
+    const detailContainer = document.createElement('div');
+    detailContainer.classList.add('detailBtnContainer');
     detailBtn.classList.add('todoDetailBtn');
     detailBtn.innerText = 'Details';
-    containerTwo.appendChild(detailBtn);
+    containerTwo.appendChild(detailContainer);
+    detailContainer.appendChild(detailBtn);
 
     // Due Date
     const dueDate = document.createElement('div');

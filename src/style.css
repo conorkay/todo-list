@@ -130,19 +130,35 @@ h2 {
   height: 1.5em;
   width: 100%;
   gap: 5px;
+  margin-bottom: 5px;
+  margin-top: 40px;
 }
 
 #date-container-text {
   height: 100%;
   margin: 0;
-  margin-left: 5px;
+  margin-left: 15px;
 }
 
 #form-button-container {
   width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: auto;
   gap: 5px;
+}
+
+#createTodo {
+  margin-right: 20px;
+  max-width: 200px;
+  width: 70%;
+  height: 2em;
+  background-color: #a5c9ff;
+  border: none;
+  color: #121212;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 #title {
@@ -170,7 +186,8 @@ h2 {
   margin: 10px;
 }
 
-#openFormBtn:hover {
+#openFormBtn:hover,
+#createTodo:hover {
   background-color: #f6f6f6;
   color: #121212;
   border: 2px solid #a5c9ff;
@@ -197,6 +214,7 @@ label {
   background-color: white;
   color: #7bb662;
   border-color: #7bb662;
+  margin-left: 10px;
 }
 
 .midLabel {
@@ -319,10 +337,20 @@ input[type='radio']:checked + .highLabel {
   grid-row: 1;
 }
 
-.todoDetailBtn {
-  color: white;
+.detailBtnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   grid-column: 1;
   grid-row: 1;
+}
+
+.todoDetailBtn {
+  padding: 5px 10px;
+  color: white;
+  width: 4.5em;
+  height: 2.5em;
+  border-radius: 5px;
 }
 
 .dueDate {
