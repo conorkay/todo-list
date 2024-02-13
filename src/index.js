@@ -4,8 +4,6 @@ import { displayController, todoManager } from './todoFunctions';
 // Element selectors
 // Button that opens form for adding new task/project
 const openFormBtn = document.getElementById('openFormBtn');
-// Form overlay
-const ovrly = document.getElementById('ovrly');
 // New todo form
 const newTodoForm = document.getElementById('newTodoForm');
 // Form x
@@ -16,17 +14,17 @@ const formContainer = document.getElementById('form-container');
 const inputFields = document.querySelectorAll('.textInput, .dateInput');
 // Container for list of todo elements
 const listContainer = document.getElementById('list-container');
+// Dialog that contains the new todo form
+const newTodoDialog = document.getElementById('newTodoDialog');
 
-// Event Listeners for form/overlay
+// Event Listeners for form
 openFormBtn.addEventListener('click', function (e) {
-  displayController.formOn(formContainer);
-});
-ovrly.addEventListener('click', function () {
-  displayController.formOff(formContainer);
-  displayController.clearInput(inputFields);
+  displayController.formOn(newTodoDialog);
 });
 cross.addEventListener('click', function () {
-  displayController.formOff(formContainer);
+  displayController.formOff(newTodoDialog);
+
+  //displayController.formOff(formContainer);
   displayController.clearInput(inputFields);
 });
 
@@ -49,6 +47,6 @@ newTodoForm.addEventListener('submit', (event) => {
 
   console.log(newTodo);
 
-  displayController.formOff(formContainer);
+  displayController.formOff(newTodoDialog);
   displayController.clearInput(inputFields);
 });

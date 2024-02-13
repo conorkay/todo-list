@@ -5,26 +5,30 @@ export const displayController = (function () {
     console.log('renderToDos');
   }
 
+  // Closes a dialogue
+  function closeDialog(dialog) {
+    dialog.close();
+  }
+
+  // Opens a dialog
+  function openDialog(dialog) {
+    dialog.showModal();
+  }
+
   // Enables form and overlay
-  function formOn(form) {
-    form.style.display = 'block';
-    overlayOn();
+  function formOn(dialog) {
+    openDialog(dialog);
+
+    //form.style.display = 'block';
+    //overlayOn();
   }
 
   // Disables form and overlay
-  function formOff(form) {
-    form.style.display = 'none';
-    overlayOff();
-  }
+  function formOff(dialog) {
+    closeDialog(dialog);
 
-  // Enables overlay
-  function overlayOn() {
-    ovrly.style.display = 'block';
-  }
-
-  // Disables overlay
-  function overlayOff() {
-    ovrly.style.display = 'none';
+    //form.style.display = 'none';
+    //overlayOff();
   }
 
   // Clears form input, takes nodelist param

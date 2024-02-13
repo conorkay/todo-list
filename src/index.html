@@ -13,80 +13,80 @@
   <body>
     <header><h1>To-Do</h1></header>
 
-    <!-- Overlay and form for creating a new task/project-->
-    <div id="ovrly"></div>
+    <!-- Dialog and form for creating new todo -->
+    <dialog id="newTodoDialog">
+      <div id="form-container">
+        <div class="form-header">
+          <h2 class="form-h2">Create New...</h2>
+          <button id="cross">&cross;</button>
+        </div>
 
-    <div id="form-container">
-      <div class="form-header">
-        <h2 class="form-h2">Create New...</h2>
-        <button id="cross">&cross;</button>
-      </div>
-
-      <div class="form-grid-container">
-        <div class="form-sidebar"></div>
-        <form id="newTodoForm">
-          <input
-            required
-            type="text"
-            placeholder="Title: Walk the dog"
-            id="title"
-            name="title"
-            class="textInput"
-            maxlength="60"
-          />
-          <textarea
-            name="details"
-            id="details"
-            class="textInput"
-            maxlength="300"
-            rows="6"
-            placeholder="Details: At the park"
-          ></textarea>
-          <div id="form-date-container">
-            <p id="date-container-text">Due Date:</p>
+        <div class="form-grid-container">
+          <div class="form-sidebar"></div>
+          <form method="dialog" id="newTodoForm">
             <input
               required
-              id="date"
-              name="date"
-              class="dateInput"
-              type="date"
+              type="text"
+              placeholder="Title: Walk the dog"
+              id="title"
+              name="title"
+              class="textInput"
+              maxlength="60"
             />
-            <script>
-              // TODO: make the min work
-              var date = new Date();
-              today =
-                date.getFullYear() +
-                '-' +
-                date.getMonth() +
-                '-' +
-                date.getDate();
-              document.getElementById('date').min = today;
-              console.log(today);
-            </script>
-          </div>
-          <div id="form-button-container">
-            <div id="radio-container">
+            <textarea
+              name="details"
+              id="details"
+              class="textInput"
+              maxlength="300"
+              rows="6"
+              placeholder="Details: At the park"
+            ></textarea>
+            <div id="form-date-container">
+              <p id="date-container-text">Due Date:</p>
               <input
                 required
-                type="radio"
-                id="low"
-                name="priority"
-                value="Low"
+                id="date"
+                name="date"
+                class="dateInput"
+                type="date"
               />
-              <label for="low" class="lowLabel">Low</label>
-
-              <input type="radio" id="mid" name="priority" value="Mid" />
-              <label for="mid" class="midLabel">Mid</label>
-
-              <input type="radio" id="high" name="priority" value="High" />
-              <label for="high" class="highLabel">High</label>
+              <script>
+                // TODO: make the min work
+                var date = new Date();
+                today =
+                  date.getFullYear() +
+                  '-' +
+                  date.getMonth() +
+                  '-' +
+                  date.getDate();
+                document.getElementById('date').min = today;
+                console.log(today);
+              </script>
             </div>
+            <div id="form-button-container">
+              <div id="radio-container">
+                <input
+                  required
+                  type="radio"
+                  id="low"
+                  name="priority"
+                  value="Low"
+                />
+                <label for="low" class="lowLabel">Low</label>
 
-            <button id="createTodo" type="submit">Create ToDo</button>
-          </div>
-        </form>
+                <input type="radio" id="mid" name="priority" value="Mid" />
+                <label for="mid" class="midLabel">Mid</label>
+
+                <input type="radio" id="high" name="priority" value="High" />
+                <label for="high" class="highLabel">High</label>
+              </div>
+
+              <button id="createTodo" type="submit">Create ToDo</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </dialog>
 
     <!-- The main grid-->
     <div class="grid-container">

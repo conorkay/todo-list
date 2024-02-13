@@ -81,30 +81,24 @@ h2 {
   gap: 10px;
 }
 
-#ovrly {
+#newTodoDialog::backdrop {
   background-color: #000;
   height: 100%;
   width: 100%;
   position: fixed;
   top: 0px;
   opacity: 0.7;
-  z-index: 1;
 }
 
 #form-container {
   position: absolute;
   background-color: #f6f6f6;
-  width: 80%;
+  width: 100%;
   max-width: 800px;
-  height: 30%;
-  margin: auto;
+  height: 100%;
   /*border: 3px solid #121212;
   border-radius: 10px;*/
   text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
 }
 
 #newTodoForm {
@@ -169,9 +163,20 @@ h2 {
   color: #928f8f;
 }
 
-#ovrly,
-#form-container {
-  display: none;
+#newTodoDialog {
+  position: absolute;
+  width: 80%;
+  max-width: 800px;
+  height: 30%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  /*border: 3px solid #121212;
+  border-radius: 10px;*/
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #openFormBtn {
