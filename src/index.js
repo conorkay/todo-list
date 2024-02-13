@@ -19,12 +19,10 @@ const newTodoDialog = document.getElementById('newTodoDialog');
 
 // Event Listeners for form
 openFormBtn.addEventListener('click', function (e) {
-  displayController.formOn(newTodoDialog);
+  displayController.openDialog(newTodoDialog);
 });
 cross.addEventListener('click', function () {
-  displayController.formOff(newTodoDialog);
-
-  //displayController.formOff(formContainer);
+  displayController.closeDialog(newTodoDialog);
   displayController.clearInput(inputFields);
 });
 
@@ -47,6 +45,6 @@ newTodoForm.addEventListener('submit', (event) => {
 
   console.log(newTodo);
 
-  displayController.formOff(newTodoDialog);
+  displayController.closeDialog(newTodoDialog);
   displayController.clearInput(inputFields);
 });

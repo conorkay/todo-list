@@ -15,22 +15,6 @@ export const displayController = (function () {
     dialog.showModal();
   }
 
-  // Enables form and overlay
-  function formOn(dialog) {
-    openDialog(dialog);
-
-    //form.style.display = 'block';
-    //overlayOn();
-  }
-
-  // Disables form and overlay
-  function formOff(dialog) {
-    closeDialog(dialog);
-
-    //form.style.display = 'none';
-    //overlayOff();
-  }
-
   // Clears form input, takes nodelist param
   function clearInput(inputFields) {
     if (inputFields.length === 0) {
@@ -159,7 +143,7 @@ export const displayController = (function () {
     return newDate;
   }
 
-  return { renderToDos, formOn, formOff, clearInput, createTodoElem };
+  return { renderToDos, openDialog, closeDialog, clearInput, createTodoElem };
 })();
 
 export const todoManager = (function () {
