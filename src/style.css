@@ -38,7 +38,7 @@ h2 {
   margin-left: 20px;
 }
 
-#cross {
+.cross {
   margin-right: 10px;
 }
 
@@ -81,7 +81,8 @@ h2 {
   gap: 10px;
 }
 
-#newTodoDialog::backdrop {
+#newTodoDialog::backdrop,
+#detailDialog::backdrop {
   background-color: #000;
   height: 100%;
   width: 100%;
@@ -90,15 +91,20 @@ h2 {
   opacity: 0.7;
 }
 
-#form-container {
-  position: absolute;
-  background-color: #f6f6f6;
-  width: 100%;
-  max-width: 800px;
-  height: 100%;
-  /*border: 3px solid #121212;
-  border-radius: 10px;*/
-  text-align: center;
+#detailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+#titleDisplayContainer,
+#descriptionDisplayContainer,
+#dateDisplayContainer,
+#prioDisplayContainer {
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  gap: 5px;
 }
 
 #newTodoForm {
@@ -163,7 +169,8 @@ h2 {
   color: #928f8f;
 }
 
-#newTodoDialog {
+#newTodoDialog,
+#detailDialog {
   position: absolute;
   width: 80%;
   max-width: 800px;
@@ -171,6 +178,7 @@ h2 {
   margin: 0;
   padding: 0;
   border: 0;
+  background-color: #f6f6f6;
   /*border: 3px solid #121212;
   border-radius: 10px;*/
   text-align: center;
@@ -198,6 +206,14 @@ h2 {
   border: 2px solid #a5c9ff;
 }
 
+#formTextContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 5px;
+}
+
 input[type='radio'] {
   opacity: 0;
   height: 1px;
@@ -207,6 +223,12 @@ input[type='radio'] {
   padding: 0px;
   margin: 0px;
   left: 5.9rem;
+}
+
+#radio-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 label {
@@ -270,7 +292,7 @@ input[type='radio']:checked + .highLabel {
 
 .inter-container-one {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: fit-content(3em) 4.5em fit-content(75%);
   grid-template-rows: 100%;
   height: 100%;
   gap: 10px;
@@ -283,10 +305,14 @@ input[type='radio']:checked + .highLabel {
   gap: 10px;
 }
 
-.todoTitle {
-  text-decoration: none;
+.titleContainer {
   grid-column: 3;
   grid-row: 1;
+  overflow: hidden;
+}
+
+.todoTitle {
+  text-decoration: none;
 }
 
 .todoTitleChecked {

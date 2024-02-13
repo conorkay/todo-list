@@ -11,19 +11,19 @@
     <title>ToDo List</title>
   </head>
   <body>
-    <header><h1>To-Do</h1></header>
+    <header><h1>To Do</h1></header>
 
     <!-- Dialog and form for creating new todo -->
     <dialog id="newTodoDialog">
-      <div id="form-container">
-        <div class="form-header">
-          <h2 class="form-h2">Create New...</h2>
-          <button id="cross">&cross;</button>
-        </div>
+      <div class="form-header">
+        <h2 class="form-h2">Create New...</h2>
+        <button id="todoCross" class="cross">&cross;</button>
+      </div>
 
-        <div class="form-grid-container">
-          <div class="form-sidebar"></div>
-          <form method="dialog" id="newTodoForm">
+      <div class="form-grid-container">
+        <div class="form-sidebar"></div>
+        <form method="dialog" id="newTodoForm">
+          <div id="formTextContainer">
             <input
               required
               type="text"
@@ -31,7 +31,7 @@
               id="title"
               name="title"
               class="textInput"
-              maxlength="60"
+              maxlength="40"
             />
             <textarea
               name="details"
@@ -50,40 +50,64 @@
                 class="dateInput"
                 type="date"
               />
-              <script>
-                // TODO: make the min work
-                var date = new Date();
-                today =
-                  date.getFullYear() +
-                  '-' +
-                  date.getMonth() +
-                  '-' +
-                  date.getDate();
-                document.getElementById('date').min = today;
-                console.log(today);
-              </script>
             </div>
-            <div id="form-button-container">
-              <div id="radio-container">
-                <input
-                  required
-                  type="radio"
-                  id="low"
-                  name="priority"
-                  value="Low"
-                />
-                <label for="low" class="lowLabel">Low</label>
+            <script>
+              // TODO: make the min work
+              var date = new Date();
+              today =
+                date.getFullYear() +
+                '-' +
+                date.getMonth() +
+                '-' +
+                date.getDate();
+              document.getElementById('date').min = today;
+              console.log(today);
+            </script>
+          </div>
+          <div id="form-button-container">
+            <div id="radio-container">
+              <input
+                required
+                type="radio"
+                id="low"
+                name="priority"
+                value="Low"
+              />
+              <label for="low" class="lowLabel">Low</label>
 
-                <input type="radio" id="mid" name="priority" value="Mid" />
-                <label for="mid" class="midLabel">Mid</label>
+              <input type="radio" id="mid" name="priority" value="Mid" />
+              <label for="mid" class="midLabel">Mid</label>
 
-                <input type="radio" id="high" name="priority" value="High" />
-                <label for="high" class="highLabel">High</label>
-              </div>
-
-              <button id="createTodo" type="submit">Create ToDo</button>
+              <input type="radio" id="high" name="priority" value="High" />
+              <label for="high" class="highLabel">High</label>
             </div>
-          </form>
+
+            <button id="createTodo" type="submit">Create ToDo</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- Dialog for displaying todo details-->
+    <dialog id="detailDialog">
+      <div id="detailHeader" class="form-header">
+        <h2 class="form-h2">Todo Details</h2>
+        <button id="detailCross" class="cross">&cross;</button>
+      </div>
+      <div id="detailContainer">
+        <div id="titleDisplayContainer">
+          <p>Title:</p>
+          <p id="titleDisplay"></p>
+        </div>
+        <div id="descriptionDisplayContainer">
+          <p>Description:</p>
+          <p id="descriptionDisplay"></p>
+        </div>
+        <div id="dateDisplayContainer">
+          <p>Due Date:</p>
+        </div>
+        <div id="prioDisplayContainer">
+          <p>Priority:</p>
         </div>
       </div>
     </dialog>

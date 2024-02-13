@@ -1,5 +1,10 @@
 import { format, parseISO } from 'date-fns';
 
+// Detail display title
+const detailTitle = document.querySelector('#titleDisplay');
+// Detail display details
+const detailDescription = document.querySelector('#descriptionDisplay');
+
 export const displayController = (function () {
   function renderToDos() {
     console.log('renderToDos');
@@ -39,6 +44,12 @@ export const displayController = (function () {
     }
   }
 
+  // Clear detail dialog
+  function clearDetail() {
+    detailTitle.textContent = '';
+    detailDescription.textContent = '';
+  }
+
   // Creates a DOM element for a new todo
   function createTodoElem(container, todo) {
     const newDiv = document.createElement('div');
@@ -75,10 +86,13 @@ export const displayController = (function () {
     prioContainer.appendChild(priority);
 
     // Todo title
+    const titleContainer = document.createElement('div');
     const title = document.createElement('p');
+    titleContainer.classList.add('titleContainer');
     title.classList.add('todoTitle');
     title.textContent = todo.title;
-    containerOne.appendChild(title);
+    containerOne.appendChild(titleContainer);
+    titleContainer.appendChild(title);
 
     // Second container
     const containerTwo = document.createElement('div');
@@ -93,6 +107,7 @@ export const displayController = (function () {
     detailBtn.innerText = 'Details';
     containerTwo.appendChild(detailContainer);
     detailContainer.appendChild(detailBtn);
+    addDetailListener(detailBtn);
 
     // Due Date
     const dueDate = document.createElement('div');
@@ -120,6 +135,15 @@ export const displayController = (function () {
     });
   }
 
+  // Adds a 'click' listener that displays the todo details
+  function addDetailListener(elem) {
+    elem.addEventListener('click', function (e) {
+      console.log('detail pressed');
+      populateDetail(elem);
+      openDialog(detailDialog);
+    });
+  }
+
   // Adds a 'click' listener that toggles style for completed task
   function addCheckedListener(elem) {
     elem.addEventListener('click', function (e) {
@@ -143,7 +167,22 @@ export const displayController = (function () {
     return newDate;
   }
 
-  return { renderToDos, openDialog, closeDialog, clearInput, createTodoElem };
+  // Fills the detail box with info from the selected todo
+  function populateDetail(button) {
+    let todoElem = button.parentNode.parentNode.parentNode;
+    console.log(todoElem);
+    detailTitle.textContent = todoElem.todoObj.title;
+    detailDescription.textContent = todoElem.todoObj.description;
+  }
+
+  return {
+    renderToDos,
+    openDialog,
+    closeDialog,
+    clearInput,
+    clearDetail,
+    createTodoElem,
+  };
 })();
 
 export const todoManager = (function () {
