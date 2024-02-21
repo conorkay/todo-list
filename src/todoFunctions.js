@@ -24,7 +24,7 @@ export const displayController = (function () {
     clearTodos();
     let node = linkedList.head;
     while (node != null) {
-      createTodoElem(todoContainer, node.todo);
+      createTodoElem(node.todo);
       node = node.next;
     }
   }
@@ -70,7 +70,7 @@ export const displayController = (function () {
   }
 
   // Creates a DOM element for a new todo
-  function createTodoElem(container, todo) {
+  function createTodoElem(todo) {
     const newDiv = document.createElement('div');
     newDiv.classList.add('todoItem');
 
@@ -144,7 +144,11 @@ export const displayController = (function () {
     // Link object to dom element
     newDiv.todoObj = todo;
     // Append to list container
-    container.appendChild(newDiv);
+    todoContainer.appendChild(newDiv);
+    if (todo.checked) {
+      newDiv.classList.toggle('todoChecked');
+      newDiv.children[0].children[2].classList.toggle('todoTitleChecked');
+    }
   }
 
   // Adds a 'click' listener that deletes the parent's parent element from DOM
@@ -169,6 +173,12 @@ export const displayController = (function () {
   function addCheckedListener(elem) {
     elem.addEventListener('click', function (e) {
       elem.parentNode.parentNode.classList.toggle('todoChecked');
+      let todo = elem.parentNode.parentNode.todoObj;
+      if (todo.checked) {
+        todo.checked = false;
+      } else {
+        todo.checked = true;
+      }
       console.log('checked');
     });
   }
@@ -231,6 +241,7 @@ export const todoManager = (function () {
     this.dueDate = dueDate;
     this.priority = priority;
     this.project = project;
+    this.checked = false;
   }
 
   // Project constructor
@@ -253,7 +264,7 @@ export const todoManager = (function () {
     var node = new listNode(todo);
     if (linkedList.head === null) {
       linkedList.head = node;
-      displayController.renderToDos(linkedList);
+      displayController.createTodoElem(todo);
     } else {
       insertNode(node);
     }
