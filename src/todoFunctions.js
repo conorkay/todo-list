@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, compareAsc } from 'date-fns';
 
 // Detail display title
 const detailTitle = document.querySelector('#titleDisplay');
@@ -8,10 +8,25 @@ const detailDescription = document.querySelector('#descriptionDisplay');
 const detailDate = document.getElementById('dateDisplay');
 // Detail priority display
 const detailPriority = document.getElementById('prioDisplay');
+const todoContainer = document.getElementById('list-container');
 
 export const displayController = (function () {
-  function renderToDos() {
+  // Clears all todo's from the DOM
+  function clearTodos() {
+    while (todoContainer.firstChild) {
+      todoContainer.removeChild(todoContainer.lastChild);
+    }
+  }
+
+  // Renders todo elements from a linked list
+  function renderToDos(linkedList) {
     console.log('renderToDos');
+    clearTodos();
+    let node = linkedList.head;
+    while (node != null) {
+      createTodoElem(todoContainer, node.todo);
+      node = node.next;
+    }
   }
 
   // Closes a dialogue
@@ -200,21 +215,24 @@ export const displayController = (function () {
     closeDialog,
     clearInput,
     clearDetail,
-    createTodoElem,
+    createTodoElem, // maybe delete this
   };
 })();
 
 export const todoManager = (function () {
+  let linkedList = { head: null };
+
   // to-do constructor
-  function createTodo(title, description, dueDate, priority) {
+  function todo(title, description, dueDate, priority, project) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.project = project;
   }
 
   // Project constructor
-  function createProject(title, description, dueDate, priority, taskList) {
+  function project(title, description, dueDate, priority, taskList) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -222,5 +240,128 @@ export const todoManager = (function () {
     this.taskList = taskList;
   }
 
-  return { createTodo, createProject };
+  class listNode {
+    constructor(todo) {
+      this.todo = todo;
+      this.next = null;
+      this.prev = null;
+    }
+  }
+
+  function createNewNode(todo) {
+    var node = new listNode(todo);
+    if (linkedList.head === null) {
+      linkedList.head = node;
+      displayController.renderToDos(linkedList);
+    } else {
+      insertNode(node);
+    }
+  }
+
+  function insertNode(newNode) {
+    let node = linkedList.head;
+    let prevNode;
+
+    while (node != null) {
+      // New node has an earlier due date
+      if (
+        compareAsc(
+          parseISO(newNode.todo.dueDate),
+          parseISO(node.todo.dueDate)
+        ) === -1
+      ) {
+        if (node === linkedList.head) {
+          linkedList.head = newNode;
+        } else {
+          prevNode.next = newNode;
+        }
+        newNode.next = node;
+        break;
+      }
+
+      // Nodes have the same due date
+      else if (
+        compareAsc(
+          parseISO(newNode.todo.dueDate),
+          parseISO(node.todo.dueDate)
+        ) === 0
+      ) {
+        // new todo is higher priority
+        if (
+          (newNode.todo.priority === 'High' && node.todo.priority != 'High') ||
+          (newNode.todo.priority === 'Mid' && node.todo.priority === 'Low')
+        ) {
+          newNode.next = node;
+          if (node === linkedList.head) {
+            linkedList.head = newNode;
+          } else {
+            prevNode.next = newNode;
+          }
+        }
+        // old todo is higher priority
+        else if (
+          (node.todo.priority === 'High' && newNode.todo.priority != 'High') ||
+          (node.todo.priority === 'Mid' && newNode.todo.priority === 'Low')
+        ) {
+          newNode.next = node.next;
+          node.next = newNode;
+        }
+        // todos are same priority
+        else {
+          newNode.next = node.next;
+          node.next = newNode;
+        }
+        break;
+      }
+
+      // New node has later due date and end of list
+      else if (node.next === null) {
+        node.next = newNode;
+        break;
+      }
+
+      // New node has later due date
+      else if (
+        compareAsc(
+          parseISO(newNode.todo.dueDate),
+          parseISO(node.todo.dueDate)
+        ) === 1 &&
+        compareAsc(
+          parseISO(newNode.todo.dueDate),
+          parseISO(node.next.todo.dueDate)
+        ) === -1
+      ) {
+        newNode.next = node.next;
+        node.next = newNode;
+        break;
+      }
+      prevNode = node;
+      node = node.next;
+    }
+    console.log(linkedList);
+    displayController.renderToDos(linkedList);
+  }
+
+  function deleteTodoNode(todo) {
+    let node = linkedList.head;
+    let prevNode;
+    if (node === null) {
+      console.log('delete error, head null');
+      return;
+    }
+    while (node != null) {
+      if (node.todo === todo) {
+        if (node === linkedList.head) {
+          linkedList.head = node.next;
+        } else {
+          prevNode.next = node.next;
+        }
+        break;
+      }
+      prevNode = node;
+      node = node.next;
+    }
+  }
+
+  return { todo, project, createNewNode, deleteTodoNode };
 })();

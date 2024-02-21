@@ -17,10 +17,6 @@ const listContainer = document.getElementById('list-container');
 const newTodoDialog = document.getElementById('newTodoDialog');
 // Dialog that displays details
 const detailDialog = document.getElementById('detailDialog');
-// Detail display title
-const detailTitle = document.querySelector('#titleDisplay');
-// Detail display details
-const detailDescription = document.querySelector('#descriptionDisplay');
 
 // Event Listeners for form
 openFormBtn.addEventListener('click', function (e) {
@@ -43,21 +39,18 @@ detailCross.addEventListener('click', function () {
 newTodoForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  console.log(event.currentTarget.title.value);
-  console.log(event.currentTarget.details.value);
-  console.log(event.currentTarget.date.value);
-  console.log(event.currentTarget.priority.value);
-
-  let newTodo = new todoManager.createTodo(
+  let newTodo = new todoManager.todo(
     event.currentTarget.title.value,
     event.currentTarget.details.value,
     event.currentTarget.date.value,
     event.currentTarget.priority.value
   );
 
-  displayController.createTodoElem(listContainer, newTodo);
-
   console.log(newTodo);
+
+  todoManager.createNewNode(newTodo);
+
+  //displayController.createTodoElem(listContainer, newTodo);
 
   displayController.closeDialog(newTodoDialog);
   displayController.clearInput(inputFields);
