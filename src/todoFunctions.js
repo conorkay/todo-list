@@ -150,7 +150,9 @@ export const displayController = (function () {
   // Adds a 'click' listener that deletes the parent's parent element from DOM
   function addRemoveListener(elem) {
     elem.addEventListener('click', function (e) {
-      elem.parentNode.parentNode.remove();
+      let todoElem = elem.parentNode.parentNode;
+      todoManager.deleteTodoNode(todoElem.todoObj);
+      todoElem.remove();
     });
   }
 
@@ -244,7 +246,6 @@ export const todoManager = (function () {
     constructor(todo) {
       this.todo = todo;
       this.next = null;
-      this.prev = null;
     }
   }
 
