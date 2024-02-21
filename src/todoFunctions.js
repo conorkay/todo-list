@@ -295,28 +295,45 @@ export const todoManager = (function () {
           newNode.next = node;
           if (node === linkedList.head) {
             linkedList.head = newNode;
+            break;
           } else {
             prevNode.next = newNode;
+            break;
           }
+        } else if (node.next === null) {
+          node.next = newNode;
+          break;
         }
+
         // old todo is higher priority
         else if (
-          (node.todo.priority === 'High' && newNode.todo.priority != 'High') ||
-          (node.todo.priority === 'Mid' && newNode.todo.priority === 'Low')
+          (node.todo.priority === 'High' &&
+            newNode.todo.priority === 'Mid' &&
+            node.next.todo.priority != 'High') ||
+          (node.todo.priority === 'High' &&
+            newNode.todo.priority === 'Low' &&
+            node.next.todo.priority === 'Low') ||
+          (node.todo.priority === 'Mid' &&
+            newNode.todo.priority === 'Low' &&
+            node.next.todo.priority === 'Low') ||
+          (node.todo.priority === 'Mid' &&
+            newNode.todo.priority === 'Low' &&
+            node.next.todo.priority === 'Low') ||
+          compareAsc(
+            parseISO(newNode.todo.dueDate),
+            parseISO(node.next.todo.dueDate)
+          ) === -1
         ) {
+          console.log('made it here');
           newNode.next = node.next;
           node.next = newNode;
+          break;
         }
-        // todos are same priority
-        else {
-          newNode.next = node.next;
-          node.next = newNode;
-        }
-        break;
       }
 
       // New node has later due date and end of list
       else if (node.next === null) {
+        console.log('made it further');
         node.next = newNode;
         break;
       }
@@ -332,6 +349,7 @@ export const todoManager = (function () {
           parseISO(node.next.todo.dueDate)
         ) === -1
       ) {
+        console.log('made it even further');
         newNode.next = node.next;
         node.next = newNode;
         break;
