@@ -9,6 +9,8 @@ const detailDate = document.getElementById('dateDisplay');
 // Detail priority display
 const detailPriority = document.getElementById('prioDisplay');
 const todoContainer = document.getElementById('list-container');
+// Project list
+const projectList = document.getElementById('projectList');
 
 export const displayController = (function () {
   // Clears all todo's from the DOM
@@ -67,6 +69,14 @@ export const displayController = (function () {
   function clearDetail() {
     detailTitle.textContent = '';
     detailDescription.textContent = '';
+  }
+
+  // Creates a DOM element for a new project
+  function createProjectElem(project) {
+    const newBtn = document.createElement('button');
+    newBtn.classList.add('projectButton');
+    newBtn.innerText = project.title;
+    projectList.appendChild(newBtn);
   }
 
   // Creates a DOM element for a new todo
@@ -227,7 +237,8 @@ export const displayController = (function () {
     closeDialog,
     clearInput,
     clearDetail,
-    createTodoElem, // maybe delete this
+    createTodoElem,
+    createProjectElem,
   };
 })();
 

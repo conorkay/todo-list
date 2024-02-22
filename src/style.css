@@ -99,7 +99,7 @@ h2 {
   align-items: center;
 }
 
-#newTodoDialog::backdrop,
+#newItemDialog::backdrop,
 #detailDialog::backdrop {
   background-color: #000;
   height: 100%;
@@ -215,7 +215,7 @@ h2 {
   color: #928f8f;
 }
 
-#newTodoDialog,
+#newItemDialog,
 #detailDialog {
   position: absolute;
   width: 80%;
@@ -246,7 +246,8 @@ h2 {
 }
 
 #openFormBtn:hover,
-#createTodo:hover {
+#createTodo:hover,
+#createProject:hover {
   background-color: #f6f6f6;
   color: #121212;
   border: 2px solid #a5c9ff;

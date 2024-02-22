@@ -15,8 +15,8 @@ const detailCross = document.getElementById('detailCross');
 const inputFields = document.querySelectorAll('.textInput, .dateInput');
 // Container for list of todo elements
 const listContainer = document.getElementById('list-container');
-// Dialog that contains the new todo form
-const newTodoDialog = document.getElementById('newTodoDialog');
+// Dialog that contains the new item form
+const newItemDialog = document.getElementById('newItemDialog');
 // Dialog that displays details
 const detailDialog = document.getElementById('detailDialog');
 // Button that displays create todo
@@ -40,7 +40,7 @@ todoBtn.addEventListener('click', function (e) {
 
 // Event Listeners for form
 openFormBtn.addEventListener('click', function (e) {
-  displayController.openDialog(newTodoDialog);
+  displayController.openDialog(newItemDialog);
 });
 
 // Apply listen to all 'cross' elements
@@ -71,12 +71,20 @@ newTodoForm.addEventListener('submit', (event) => {
   todoManager.createNewNode(newTodo);
   todoManager.renderList();
 
-  displayController.closeDialog(newTodoDialog);
+  displayController.closeDialog(newItemDialog);
   displayController.clearInput(inputFields);
 });
 
 newProjectForm.addEventListener('submit', (event) => {
+  console.log('click');
   event.preventDefault();
 
-  let newProject = new todoManager.project(event.currentTarget.title.value);
+  let newProject = new todoManager.project(
+    event.currentTarget.projectTitle.value
+  );
+  console.log(newProject);
+  displayController.createProjectElem(newProject);
+
+  displayController.closeDialog(newItemDialog);
+  displayController.clearInput(inputFields);
 });
