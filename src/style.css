@@ -19,6 +19,18 @@ header,
   align-items: center;
 }
 
+#projectFormWrapper {
+  display: none;
+  height: 100%;
+  width: 100%;
+}
+
+#todoFormWrapper {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .form-header {
   /* border-top-left-radius: 10px;
   border-top-right-radius: 10px;*/
@@ -81,6 +93,12 @@ h2 {
   gap: 10px;
 }
 
+.form-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #newTodoDialog::backdrop,
 #detailDialog::backdrop {
   background-color: #000;
@@ -95,6 +113,12 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: start;
+}
+
+#projectList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #titleDisplayContainer,
@@ -113,6 +137,15 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  gap: 15px;
+  width: 100%;
+}
+
+#newProjectForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 15px;
   width: 100%;
 }
@@ -150,7 +183,18 @@ h2 {
   gap: 5px;
 }
 
-#createTodo {
+#project-button-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  gap: 5px;
+  margin-bottom: 30px;
+}
+
+#createTodo,
+#createProject {
   margin-right: 20px;
   max-width: 200px;
   width: 70%;
@@ -162,7 +206,8 @@ h2 {
   font-size: 16px;
 }
 
-#title {
+#title,
+#projectTitle {
   margin-top: 5px;
 }
 
@@ -207,7 +252,8 @@ h2 {
   border: 2px solid #a5c9ff;
 }
 
-#formTextContainer {
+#formTextContainer,
+#projectTextContainer {
   display: flex;
   flex-direction: column;
   width: 100%;

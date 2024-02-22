@@ -245,12 +245,8 @@ export const todoManager = (function () {
   }
 
   // Project constructor
-  function project(title, description, dueDate, priority, taskList) {
+  function project(title) {
     this.title = title;
-    this.description = description;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.taskList = taskList;
   }
 
   class listNode {
@@ -368,8 +364,6 @@ export const todoManager = (function () {
       prevNode = node;
       node = node.next;
     }
-    console.log(linkedList);
-    displayController.renderToDos(linkedList);
   }
 
   function deleteTodoNode(todo) {
@@ -393,5 +387,9 @@ export const todoManager = (function () {
     }
   }
 
-  return { todo, project, createNewNode, deleteTodoNode };
+  function renderList() {
+    displayController.renderToDos(linkedList);
+  }
+
+  return { todo, project, createNewNode, deleteTodoNode, renderList };
 })();

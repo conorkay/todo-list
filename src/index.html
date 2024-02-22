@@ -21,70 +21,93 @@
       </div>
 
       <div class="form-grid-container">
-        <div class="form-sidebar"></div>
-        <form method="dialog" id="newTodoForm">
-          <div id="formTextContainer">
-            <input
-              required
-              type="text"
-              placeholder="Title: Walk the dog"
-              id="title"
-              name="title"
-              class="textInput"
-              maxlength="40"
-            />
-            <textarea
-              name="details"
-              id="details"
-              class="textInput"
-              maxlength="300"
-              rows="6"
-              placeholder="Details: At the park"
-            ></textarea>
-            <div id="form-date-container">
-              <p id="date-container-text">Due Date:</p>
+        <div class="form-sidebar">
+          <button id="newTodoBtn">ToDo</button>
+          <button id="newProjectBtn">Project</button>
+        </div>
+        <div id="projectFormWrapper" style="display: none;">
+          <form method="dialog" id="newProjectForm">
+            <div id="projectTextContainer">
               <input
                 required
-                id="date"
-                name="date"
-                class="dateInput"
-                type="date"
+                type="text"
+                placeholder="Build a house"
+                id="projectTitle"
+                name="projectTitle"
+                class="textInput"
+                maxlength="40"
               />
             </div>
-            <script>
-              // TODO: make the min work
-              var date = new Date();
-              today =
-                date.getFullYear() +
-                '-' +
-                date.getMonth() +
-                '-' +
-                date.getDate();
-              document.getElementById('date').min = today;
-              console.log(today);
-            </script>
-          </div>
-          <div id="form-button-container">
-            <div id="radio-container">
+            <div id="project-button-container">
+              <button id="createProject" type="submit">Create Project</button>
+          </form>
+        </div>
+      </div>
+        <div id="todoFormWrapper" style="display: flex;">
+          <form method="dialog" id="newTodoForm">
+            <div id="formTextContainer">
               <input
                 required
-                type="radio"
-                id="low"
-                name="priority"
-                value="Low"
+                type="text"
+                placeholder="Title: Walk the dog"
+                id="title"
+                name="title"
+                class="textInput"
+                maxlength="40"
               />
-              <label for="low" class="lowLabel">Low</label>
-
-              <input type="radio" id="mid" name="priority" value="Mid" />
-              <label for="mid" class="midLabel">Mid</label>
-
-              <input type="radio" id="high" name="priority" value="High" />
-              <label for="high" class="highLabel">High</label>
+              <textarea
+                name="details"
+                id="details"
+                class="textInput"
+                maxlength="300"
+                rows="6"
+                placeholder="Details: At the park"
+              ></textarea>
+              <div id="form-date-container">
+                <p id="date-container-text">Due Date:</p>
+                <input
+                  required
+                  id="date"
+                  name="date"
+                  class="dateInput"
+                  type="date"
+                />
+              </div>
+              <script>
+                // TODO: make the min work
+                var date = new Date();
+                today =
+                  date.getFullYear() +
+                  '-' +
+                  date.getMonth() +
+                  '-' +
+                  date.getDate();
+                document.getElementById('date').min = today;
+                console.log(today);
+              </script>
             </div>
+            <div id="form-button-container">
+              <div id="radio-container">
+                <input
+                  required
+                  type="radio"
+                  id="low"
+                  name="priority"
+                  value="Low"
+                />
+                <label for="low" class="lowLabel">Low</label>
 
-            <button id="createTodo" type="submit">Create ToDo</button>
-          </div>
-        </form>
+                <input type="radio" id="mid" name="priority" value="Mid" />
+                <label for="mid" class="midLabel">Mid</label>
+
+                <input type="radio" id="high" name="priority" value="High" />
+                <label for="high" class="highLabel">High</label>
+              </div>
+
+              <button id="createTodo" type="submit">Create ToDo</button>
+            </div>
+          </form>
+        </div>
       </div>
     </dialog>
 
@@ -118,6 +141,11 @@
     <div class="grid-container">
       <div class="sidebar">
         <button id="openFormBtn">+ Task</button>
+        <div id="projectList">
+          <button id="homeBtn" class="projectBtn">Home</button>
+          <button id="dayBtn" class="projectBtn">Day</button>
+          <button id="weekBtn" class="projectBtn">Week</button>
+        </div>
       </div>
 
       <!-- Flex containter that holds the to-do items-->
