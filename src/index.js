@@ -126,6 +126,7 @@ newProjectForm.addEventListener('submit', (event) => {
     );
   } else {
     todoManager.createNewProjectNode(newProject);
+    console.log('here');
     displayController.createProjectElem(newProject);
   }
 

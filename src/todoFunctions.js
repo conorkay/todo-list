@@ -265,14 +265,14 @@ export const displayController = (function () {
     });
   }
 
-  // Converts a date to output format
+  // Converts a date to output format for todoElem
   function convertDate(date) {
     var newDate = format(parseISO(date), 'MMM d');
 
     return newDate;
   }
 
-  // Fills the detail box with info from the selected todo
+  // Fills the detail dialog box with info from the selected todo
   function populateDetail(button) {
     let todoElem = button.parentNode.parentNode.parentNode;
     console.log(todoElem);
@@ -338,6 +338,7 @@ export const todoManager = (function () {
     this.title = title;
   }
 
+  // Class definition of todo container nodes
   class listNode {
     constructor(todo) {
       this.todo = todo;
@@ -345,6 +346,7 @@ export const todoManager = (function () {
     }
   }
 
+  // Class definition of project container nodes
   class projectNode {
     constructor(project) {
       this.project = project;
@@ -370,6 +372,8 @@ export const todoManager = (function () {
     }
   }
 
+  // Creates a new node that contains a todo object, sets it to head if null,
+  // calls insert function otherwise
   function createNewNode(todo) {
     let node = new listNode(todo);
     if (linkedList.head === null) {
@@ -385,6 +389,8 @@ export const todoManager = (function () {
     }
   }
 
+  // Creates a new node that contains a project, sets it to head if null,
+  // calls insert function otherwise
   function createNewProjectNode(project) {
     let node = new projectNode(project);
     if (projectLinkedList.head === null) {
@@ -394,15 +400,20 @@ export const todoManager = (function () {
     }
   }
 
+  // Inserts a node into the linked list of projects
   function insertProjectNode(newNode) {
     let node = projectLinkedList.head;
     while (node != null) {
+      console.log('loop');
       if (node.next === null) {
         node.next = newNode;
+        break;
       }
+      node = node.next;
     }
   }
 
+  // Checks for a duplicate project title in the list
   function checkProjectDupe(project) {
     let node = projectLinkedList.head;
     let lowerTitle = project.title.toLowerCase();
@@ -423,7 +434,7 @@ export const todoManager = (function () {
     return false;
   }
 
-  // Sorts and inserts a new node into the linked list
+  // Sorts and inserts a new todo node into the linked list
   function insertNode(newNode) {
     let node = linkedList.head;
     let prevNode;
