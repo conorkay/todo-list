@@ -31,6 +31,31 @@ export const displayController = (function () {
     }
   }
 
+  // Renders todo elements that match a given project name
+  function renderProjectTodos(linkedList, projectName) {
+    let node = linkedList.head;
+    clearTodos();
+    if (projectName === 'home') {
+      renderToDos(linkedList);
+      return;
+    } else if (projectName === 'day') {
+      while (node != null) {
+        if (todoManager.compareDateToToday(node.todo.dueDate) === 0) {
+          createTodoElem(node.todo);
+        }
+        node = node.next;
+      }
+      return;
+    } else if (projectName === 'week') {
+    }
+    while (node != null) {
+      if (node.todo.project.toLowerCase() === projectName.toLowerCase()) {
+        createTodoElem(node.todo);
+      }
+      node = node.next;
+    }
+  }
+
   // Closes a dialogue
   function closeDialog(dialog) {
     dialog.close();
@@ -239,11 +264,13 @@ export const displayController = (function () {
     clearDetail,
     createTodoElem,
     createProjectElem,
+    renderProjectTodos,
   };
 })();
 
 export const todoManager = (function () {
   let linkedList = { head: null };
+  let currentProject = 'home';
 
   // to-do constructor
   function todo(title, description, dueDate, priority, project) {
@@ -267,6 +294,16 @@ export const todoManager = (function () {
     }
   }
 
+  // Returns the current project
+  function getCurrentProject() {
+    return currentProject;
+  }
+
+  // Takes a string, sets the current project to the new selection
+  function setCurrentProject(newProject) {
+    currentProject = newProject;
+  }
+
   function createNewNode(todo) {
     var node = new listNode(todo);
     if (linkedList.head === null) {
@@ -277,6 +314,7 @@ export const todoManager = (function () {
     }
   }
 
+  // Sorts and inserts a new node into the linked list
   function insertNode(newNode) {
     let node = linkedList.head;
     let prevNode;
@@ -284,11 +322,9 @@ export const todoManager = (function () {
     while (node != null) {
       // New node has an earlier due date
       if (
-        compareAsc(
-          parseISO(newNode.todo.dueDate),
-          parseISO(node.todo.dueDate)
-        ) === -1
+        todoManager.compareDates(newNode.todo.dueDate, node.todo.dueDate) === -1
       ) {
+        console.log('earlier due date');
         if (node === linkedList.head) {
           linkedList.head = newNode;
         } else {
@@ -300,11 +336,9 @@ export const todoManager = (function () {
 
       // Nodes have the same due date
       else if (
-        compareAsc(
-          parseISO(newNode.todo.dueDate),
-          parseISO(node.todo.dueDate)
-        ) === 0
+        todoManager.compareDates(newNode.todo.dueDate, node.todo.dueDate) === 0
       ) {
+        console.log('same due date');
         // new todo is higher priority
         if (
           (newNode.todo.priority === 'High' && node.todo.priority != 'High') ||
@@ -337,12 +371,12 @@ export const todoManager = (function () {
           (node.todo.priority === 'Mid' &&
             newNode.todo.priority === 'Low' &&
             node.next.todo.priority === 'Low') ||
-          compareAsc(
-            parseISO(newNode.todo.dueDate),
-            parseISO(node.next.todo.dueDate)
+          todoManager.compareDates(
+            newNode.todo.dueDate,
+            node.next.todo.dueDate
           ) === -1
         ) {
-          console.log('made it here');
+          console.log('same due date, old is higher prio');
           newNode.next = node.next;
           node.next = newNode;
           break;
@@ -351,23 +385,21 @@ export const todoManager = (function () {
 
       // New node has later due date and end of list
       else if (node.next === null) {
-        console.log('made it further');
+        console.log('later due date, end of list');
         node.next = newNode;
         break;
       }
 
       // New node has later due date
       else if (
-        compareAsc(
-          parseISO(newNode.todo.dueDate),
-          parseISO(node.todo.dueDate)
-        ) === 1 &&
-        compareAsc(
-          parseISO(newNode.todo.dueDate),
-          parseISO(node.next.todo.dueDate)
+        todoManager.compareDates(newNode.todo.dueDate, node.todo.dueDate) ===
+          1 &&
+        todoManager.compareDates(
+          newNode.todo.dueDate,
+          node.next.todo.dueDate
         ) === -1
       ) {
-        console.log('made it even further');
+        console.log('later due date');
         newNode.next = node.next;
         node.next = newNode;
         break;
@@ -377,6 +409,7 @@ export const todoManager = (function () {
     }
   }
 
+  // Takes a todo object, deletes the node that contains it from the linked list
   function deleteTodoNode(todo) {
     let node = linkedList.head;
     let prevNode;
@@ -398,9 +431,41 @@ export const todoManager = (function () {
     }
   }
 
+  // Passes the linked list the the DOM render function
   function renderList() {
     displayController.renderToDos(linkedList);
   }
 
-  return { todo, project, createNewNode, deleteTodoNode, renderList };
+  function renderProjectList() {
+    displayController.renderProjectTodos(linkedList, currentProject);
+  }
+
+  // Compares two dates. Returns 1 if the first date is first, 0 if the same,
+  // -1 if first date is second
+  function compareDates(date1, date2) {
+    return compareAsc(parseISO(date1), parseISO(date2));
+  }
+
+  // Today's date
+  var date = new Date();
+  var today = format(date, 'yyyy-MM-dd');
+
+  // Compares a date to today's date. Returns 1 if the first date is first,
+  // 0 if the same, -1 if first date is second.
+  function compareDateToToday(date) {
+    return compareAsc(parseISO(date), parseISO(today));
+  }
+
+  return {
+    todo,
+    project,
+    createNewNode,
+    deleteTodoNode,
+    renderList,
+    renderProjectList,
+    getCurrentProject,
+    setCurrentProject,
+    compareDates,
+    compareDateToToday,
+  };
 })();
