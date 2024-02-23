@@ -100,7 +100,8 @@ newTodoForm.addEventListener('submit', (event) => {
   console.log(newTodo);
 
   todoManager.createNewNode(newTodo);
-  todoManager.renderList();
+  console.log(todoManager.getCurrentProject());
+  todoManager.renderProjectList();
 
   displayController.closeDialog(newItemDialog);
   displayController.clearInput(inputFields);

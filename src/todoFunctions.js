@@ -304,11 +304,24 @@ export const todoManager = (function () {
     currentProject = newProject;
   }
 
+  function checkTodayProjectCondition(todo) {
+    if (compareDateToToday(todo.dueDate) != 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   function createNewNode(todo) {
     var node = new listNode(todo);
     if (linkedList.head === null) {
       linkedList.head = node;
-      displayController.createTodoElem(todo);
+      if (
+        getCurrentProject() != 'day' ||
+        (getCurrentProject() === 'day' && checkTodayProjectCondition(todo))
+      ) {
+        displayController.createTodoElem(todo);
+      }
     } else {
       insertNode(node);
     }
@@ -467,5 +480,6 @@ export const todoManager = (function () {
     setCurrentProject,
     compareDates,
     compareDateToToday,
+    checkTodayProjectCondition,
   };
 })();
