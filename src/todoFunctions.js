@@ -10,6 +10,8 @@ import {
 
 // Detail display title
 const detailTitle = document.querySelector('#titleDisplay');
+// Detail display project title
+const detailProjectTitle = document.querySelector('#projectTitleDisplay');
 // Detail display details
 const detailDescription = document.querySelector('#descriptionDisplay');
 // Detail display due date
@@ -118,7 +120,9 @@ export const displayController = (function () {
   // Clear detail dialog
   function clearDetail() {
     detailTitle.textContent = '';
+    detailProjectTitle.textContent = '';
     detailDescription.textContent = '';
+    detailPriority.className = '';
   }
 
   // Creates a DOM element for a new project
@@ -127,6 +131,16 @@ export const displayController = (function () {
     newBtn.classList.add('projectButton');
     newBtn.innerText = project.title;
     projectList.appendChild(newBtn);
+    addProjectListener(newBtn);
+  }
+
+  // Adds listener to a project DOM element
+  function addProjectListener(elem) {
+    elem.addEventListener('click', function (e) {
+      todoManager.setCurrentProject(elem.innerText);
+      console.log(todoManager.getCurrentProject());
+      todoManager.renderProjectList();
+    });
   }
 
   // Creates a DOM element for a new todo
@@ -263,6 +277,12 @@ export const displayController = (function () {
     let todoElem = button.parentNode.parentNode.parentNode;
     console.log(todoElem);
     detailTitle.textContent = todoElem.todoObj.title;
+
+    if (todoElem.todoObj.project === 'home') {
+      detailProjectTitle.textContent = 'None';
+    } else {
+      detailProjectTitle.textContent = todoElem.todoObj.project;
+    }
     detailDescription.textContent = todoElem.todoObj.description;
     detailDate.textContent = format(
       parseISO(todoElem.todoObj.dueDate),
