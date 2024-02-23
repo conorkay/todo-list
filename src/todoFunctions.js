@@ -314,7 +314,13 @@ export const displayController = (function () {
 })();
 
 export const todoManager = (function () {
+  // Linked list of nodes containing todo objects
   let linkedList = { head: null };
+
+  // Linked list of nodes containing project objects
+  let projectLinkedList = { head: null };
+
+  // Current project flag
   let currentProject = 'home';
 
   // to-do constructor
@@ -339,6 +345,13 @@ export const todoManager = (function () {
     }
   }
 
+  class projectNode {
+    constructor(project) {
+      this.project = project;
+      this.next = null;
+    }
+  }
+
   // Returns the current project
   function getCurrentProject() {
     return currentProject;
@@ -358,7 +371,7 @@ export const todoManager = (function () {
   }
 
   function createNewNode(todo) {
-    var node = new listNode(todo);
+    let node = new listNode(todo);
     if (linkedList.head === null) {
       linkedList.head = node;
       if (
@@ -370,6 +383,44 @@ export const todoManager = (function () {
     } else {
       insertNode(node);
     }
+  }
+
+  function createNewProjectNode(project) {
+    let node = new projectNode(project);
+    if (projectLinkedList.head === null) {
+      projectLinkedList.head = node;
+    } else {
+      insertProjectNode(node);
+    }
+  }
+
+  function insertProjectNode(newNode) {
+    let node = projectLinkedList.head;
+    while (node != null) {
+      if (node.next === null) {
+        node.next = newNode;
+      }
+    }
+  }
+
+  function checkProjectDupe(project) {
+    let node = projectLinkedList.head;
+    let lowerTitle = project.title.toLowerCase();
+
+    if (
+      lowerTitle === 'home' ||
+      lowerTitle === 'day' ||
+      lowerTitle === 'week'
+    ) {
+      return true;
+    }
+    while (node != null) {
+      if (node.project.title.toLowerCase() === lowerTitle) {
+        return true;
+      }
+      node = node.next;
+    }
+    return false;
   }
 
   // Sorts and inserts a new node into the linked list
@@ -530,6 +581,7 @@ export const todoManager = (function () {
     todo,
     project,
     createNewNode,
+    createNewProjectNode,
     deleteTodoNode,
     renderList,
     renderProjectList,
@@ -539,5 +591,6 @@ export const todoManager = (function () {
     compareDateToToday,
     checkTodayProjectCondition,
     withinWeek,
+    checkProjectDupe,
   };
 })();

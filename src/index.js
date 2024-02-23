@@ -116,7 +116,21 @@ newProjectForm.addEventListener('submit', (event) => {
     event.currentTarget.projectTitle.value
   );
   console.log(newProject);
-  displayController.createProjectElem(newProject);
+
+  if (todoManager.checkProjectDupe(newProject)) {
+    console.log(
+      newProject.title +
+        ' is already a project. Changing folder to ' +
+        newProject.title +
+        '.'
+    );
+  } else {
+    todoManager.createNewProjectNode(newProject);
+    displayController.createProjectElem(newProject);
+  }
+
+  todoManager.setCurrentProject(newProject.title);
+  todoManager.renderProjectList();
 
   displayController.closeDialog(newItemDialog);
   displayController.clearInput(inputFields);
