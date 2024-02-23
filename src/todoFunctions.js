@@ -1,4 +1,12 @@
-import { format, parseISO, compareAsc } from 'date-fns';
+import {
+  format,
+  parseISO,
+  compareAsc,
+  isEqual,
+  isAfter,
+  isBefore,
+  add,
+} from 'date-fns';
 
 // Detail display title
 const detailTitle = document.querySelector('#titleDisplay');
@@ -20,7 +28,7 @@ export const displayController = (function () {
     }
   }
 
-  // Renders todo elements from a linked list
+  // Renders all todo elements from a linked list
   function renderToDos(linkedList) {
     console.log('renderToDos');
     clearTodos();
@@ -31,14 +39,19 @@ export const displayController = (function () {
     }
   }
 
-  // Renders todo elements that match a given project name
+  // Renders todo elements from a linked list that match a given project name
   function renderProjectTodos(linkedList, projectName) {
     let node = linkedList.head;
     clearTodos();
+
+    // If current project is 'home', render all todos
     if (projectName === 'home') {
       renderToDos(linkedList);
       return;
-    } else if (projectName === 'day') {
+    }
+
+    // If 'day' project is selected, only render todos due today
+    else if (projectName === 'day') {
       while (node != null) {
         if (todoManager.compareDateToToday(node.todo.dueDate) === 0) {
           createTodoElem(node.todo);
@@ -46,8 +59,20 @@ export const displayController = (function () {
         node = node.next;
       }
       return;
-    } else if (projectName === 'week') {
     }
+
+    // If 'week' is selected, only render todos due within 7 days
+    else if (projectName === 'week') {
+      while (node != null) {
+        if (todoManager.withinWeek(node.todo.dueDate)) {
+          createTodoElem(node.todo);
+        }
+        node = node.next;
+      }
+      return;
+    }
+
+    // If custom project, only render todos that match said project
     while (node != null) {
       if (node.todo.project.toLowerCase() === projectName.toLowerCase()) {
         createTodoElem(node.todo);
@@ -469,6 +494,18 @@ export const todoManager = (function () {
     return compareAsc(parseISO(date), parseISO(today));
   }
 
+  // Checks if a given date is within a week from today
+  function withinWeek(date) {
+    if (
+      isEqual(parseISO(date), parseISO(today)) ||
+      (isAfter(parseISO(date), parseISO(today)) &&
+        isBefore(parseISO(date), add(parseISO(today), { days: 7 })))
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   return {
     todo,
     project,
@@ -481,5 +518,6 @@ export const todoManager = (function () {
     compareDates,
     compareDateToToday,
     checkTodayProjectCondition,
+    withinWeek,
   };
 })();
