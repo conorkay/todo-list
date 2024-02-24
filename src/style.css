@@ -387,6 +387,8 @@ input[type='radio']:checked + .highLabel {
 
 .todoTitle {
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .todoTitleChecked {
