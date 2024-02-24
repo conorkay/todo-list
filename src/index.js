@@ -35,28 +35,46 @@ const dayBtn = document.getElementById('dayBtn');
 const weekBtn = document.getElementById('weekBtn');
 // Button for 'overdue' project
 const overdueBtn = document.getElementById('overdueBtn');
+// List that contains project buttons
+const projectList = document.getElementById('projectList');
 
 // Listener for the 'home' project button
 homeBtn.addEventListener('click', function (e) {
   todoManager.setCurrentProject('home');
+  displayController.removeSelected(projectList.childNodes);
+  homeBtn.classList.toggle('selected');
+  displayController.disableButton(homeBtn);
+  displayController.enableButtonList(homeBtn, projectList.childNodes);
   todoManager.renderProjectList();
 });
 
 // Listener for the 'day' project button
 dayBtn.addEventListener('click', function (e) {
   todoManager.setCurrentProject('day');
+  displayController.removeSelected(projectList.childNodes);
+  dayBtn.classList.toggle('selected');
+  displayController.disableButton(dayBtn);
+  displayController.enableButtonList(dayBtn, projectList.childNodes);
   todoManager.renderProjectList();
 });
 
 // Listener for the 'week' project button
 weekBtn.addEventListener('click', function (e) {
   todoManager.setCurrentProject('week');
+  displayController.removeSelected(projectList.childNodes);
+  weekBtn.classList.toggle('selected');
+  displayController.disableButton(weekBtn);
+  displayController.enableButtonList(weekBtn, projectList.childNodes);
   todoManager.renderProjectList();
 });
 
 // Listener for the 'overdue' button
 overdueBtn.addEventListener('click', function (e) {
   todoManager.setCurrentProject('overdue');
+  displayController.removeSelected(projectList.childNodes);
+  overdueBtn.classList.toggle('selected');
+  displayController.disableButton(overdueBtn);
+  displayController.enableButtonList(overdueBtn, projectList.childNodes);
   todoManager.renderProjectList();
 });
 

@@ -313,6 +313,36 @@ export const displayController = (function () {
     }
   }
 
+  // Disables a button
+  function disableButton(button) {
+    button.disabled = true;
+  }
+
+  // Enables a button
+  function enableButton(button) {
+    if (button.tagName === 'BUTTON') {
+      button.disabled = false;
+    }
+  }
+
+  // Enables every button in a nodelist except for the param
+  function enableButtonList(button, list) {
+    list.forEach(function (currentValue) {
+      if (currentValue != button && currentValue.tagName === 'BUTTON') {
+        enableButton(currentValue);
+      }
+    });
+  }
+
+  // Removes the 'selected' class from every element in a nodelist
+  function removeSelected(list) {
+    list.forEach(function (currentValue) {
+      if (currentValue.tagName === 'BUTTON') {
+        currentValue.classList.remove('selected');
+      }
+    });
+  }
+
   return {
     renderToDos,
     openDialog,
@@ -322,6 +352,10 @@ export const displayController = (function () {
     createTodoElem,
     createProjectElem,
     renderProjectTodos,
+    disableButton,
+    enableButton,
+    enableButtonList,
+    removeSelected,
   };
 })();
 
