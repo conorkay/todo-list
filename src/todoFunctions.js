@@ -74,6 +74,18 @@ export const displayController = (function () {
       return;
     }
 
+    // If 'overdue' is selected, only render unchecked todos with a due date
+    // prior to today's date
+    else if (projectName === 'overdue') {
+      while (node != null) {
+        if (todoManager.isOverdue(node.todo.dueDate) && !node.todo.checked) {
+          createTodoElem(node.todo);
+        }
+        node = node.next;
+      }
+      return;
+    }
+
     // If custom project, only render todos that match said project
     while (node != null) {
       if (node.todo.project.toLowerCase() === projectName.toLowerCase()) {
@@ -421,7 +433,8 @@ export const todoManager = (function () {
     if (
       lowerTitle === 'home' ||
       lowerTitle === 'day' ||
-      lowerTitle === 'week'
+      lowerTitle === 'week' ||
+      lowerTitle === 'overdue'
     ) {
       return true;
     }
@@ -593,6 +606,15 @@ export const todoManager = (function () {
     return false;
   }
 
+  // Checks if a given date is prior to today's
+  function isOverdue(date) {
+    if (isBefore(parseISO(date), parseISO(today))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return {
     todo,
     project,
@@ -607,6 +629,7 @@ export const todoManager = (function () {
     compareDateToToday,
     checkTodayProjectCondition,
     withinWeek,
+    isOverdue,
     checkProjectDupe,
   };
 })();

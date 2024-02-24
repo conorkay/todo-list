@@ -33,6 +33,8 @@ const homeBtn = document.getElementById('homeBtn');
 const dayBtn = document.getElementById('dayBtn');
 // Button for 'week' project
 const weekBtn = document.getElementById('weekBtn');
+// Button for 'overdue' project
+const overdueBtn = document.getElementById('overdueBtn');
 
 // Listener for the 'home' project button
 homeBtn.addEventListener('click', function (e) {
@@ -52,6 +54,12 @@ weekBtn.addEventListener('click', function (e) {
   todoManager.renderProjectList();
 });
 
+// Listener for the 'overdue' button
+overdueBtn.addEventListener('click', function (e) {
+  todoManager.setCurrentProject('overdue');
+  todoManager.renderProjectList();
+});
+
 // Listener for the 'project' button, displays the project form in the dialog
 projectBtn.addEventListener('click', function (e) {
   projectFormWrapper.style.display = 'flex';
@@ -66,6 +74,8 @@ todoBtn.addEventListener('click', function (e) {
 
 // Listener for the 'new task' button
 openFormBtn.addEventListener('click', function (e) {
+  todoFormWrapper.style.display = 'flex';
+  projectFormWrapper.style.display = 'none';
   displayController.openDialog(newItemDialog);
 });
 
@@ -85,7 +95,11 @@ newTodoForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
   let todoProject = todoManager.getCurrentProject();
-  if (todoProject === 'day' || todoProject === 'week') {
+  if (
+    todoProject === 'day' ||
+    todoProject === 'week' ||
+    todoProject === 'overdue'
+  ) {
     todoProject = 'home';
   }
 
