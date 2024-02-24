@@ -570,6 +570,11 @@ export const todoManager = (function () {
   var date = new Date();
   var today = format(date, 'yyyy-MM-dd');
 
+  // Date
+  const formDate = document.getElementById('date');
+  // Sets min value of form date to today
+  formDate.min = today;
+
   // Compares a date to today's date. Returns 1 if the first date is first,
   // 0 if the same, -1 if first date is second.
   function compareDateToToday(date) {

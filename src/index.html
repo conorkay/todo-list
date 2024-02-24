@@ -71,20 +71,9 @@
                   name="date"
                   class="dateInput"
                   type="date"
+                  min = today;
                 />
               </div>
-              <script>
-                // TODO: make the min work
-                var date = new Date();
-                today =
-                  date.getFullYear() +
-                  '-' +
-                  date.getMonth() +
-                  '-' +
-                  date.getDate();
-                document.getElementById('date').min = today;
-                console.log(today);
-              </script>
             </div>
             <div id="form-button-container">
               <div id="radio-container">
