@@ -140,7 +140,7 @@ export const displayController = (function () {
   // Creates a DOM element for a new project
   function createProjectElem(project) {
     const newBtn = document.createElement('button');
-    newBtn.classList.add('projectButton');
+    newBtn.classList.add('projectBtn');
     newBtn.innerText = project.title;
     projectList.appendChild(newBtn);
     addProjectListener(newBtn);
@@ -151,6 +151,10 @@ export const displayController = (function () {
     elem.addEventListener('click', function (e) {
       todoManager.setCurrentProject(elem.innerText);
       console.log(todoManager.getCurrentProject());
+      displayController.removeSelected(projectList.childNodes);
+      elem.classList.toggle('selected');
+      displayController.disableButton(elem);
+      displayController.enableButtonList(elem, projectList.childNodes);
       todoManager.renderProjectList();
     });
   }

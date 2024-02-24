@@ -13,7 +13,7 @@
   <body>
     <header><h1>To Do</h1></header>
 
-    <!-- Dialog and form for creating new todo -->
+    <!-- Dialog and forms for creating new todo/project -->
     <dialog id="newItemDialog">
       <div class="form-header">
         <h2 class="form-h2">Create New...</h2>
@@ -25,6 +25,8 @@
           <button id="newTodoBtn">ToDo</button>
           <button id="newProjectBtn">Project</button>
         </div>
+
+        <!-- Form for creating new project-->
         <div id="projectFormWrapper" style="display: none;">
           <form method="dialog" id="newProjectForm">
             <div id="projectTextContainer">
@@ -43,6 +45,8 @@
           </form>
         </div>
       </div>
+
+      <!-- Form for creating new todo-->
         <div id="todoFormWrapper" style="display: flex;">
           <form method="dialog" id="newTodoForm">
             <div id="formTextContainer">
@@ -53,13 +57,13 @@
                 id="title"
                 name="title"
                 class="textInput"
-                maxlength="40"
+                maxlength="60"
               />
               <textarea
                 name="details"
                 id="details"
                 class="textInput"
-                maxlength="300"
+                maxlength="325"
                 rows="6"
                 placeholder="Details: At the park"
               ></textarea>
@@ -76,7 +80,8 @@
               </div>
             </div>
             <div id="form-button-container">
-              <div id="radio-container">
+              <div id="radio-container">              
+                <p id="prio-container-text">Priority:</p>
                 <input
                   required
                   type="radio"
@@ -139,7 +144,7 @@
           <button id="dayBtn" class="projectBtn">Today</button>
           <button id="weekBtn" class="projectBtn">This Week</button>
           <button id="overdueBtn" class="projectBtn">Overdue</button>
-          <p>Projects</p>
+          <p id="projectHeader">Projects</p>
         </div>
       </div>
 

@@ -187,10 +187,15 @@ h2 {
   margin-top: 40px;
 }
 
-#date-container-text {
+#date-container-text,
+#prio-container-text {
   height: 100%;
   margin: 0;
   margin-left: 15px;
+}
+
+#projectHeader {
+  font-size: 24px;
 }
 
 #form-button-container {
