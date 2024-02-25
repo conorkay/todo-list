@@ -137,14 +137,30 @@ export const displayController = (function () {
     detailPriority.className = '';
   }
 
-  // Creates a DOM element for a new project
-  function createProjectElem(project) {
+  // Creates a DOM element for a new project, takes a 'project' object and
+  // a boolean that indicates whether or not the project has been loaded from
+  // local storage
+  function createProjectElem(project, isFromStorage) {
     const newBtn = document.createElement('button');
     newBtn.classList.add('projectBtn');
     newBtn.innerText = project.title;
     projectList.appendChild(newBtn);
     addProjectListener(newBtn);
+
+    // Set display to project of new button, disable button
+    if (!isFromStorage) {
+      todoManager.setCurrentProject(project.title);
+      displayController.removeSelected(projectList.childNodes);
+      newBtn.classList.toggle('selected');
+      displayController.disableButton(newBtn);
+      displayController.enableButtonList(newBtn, projectList.childNodes);
+      todoManager.renderProjectList();
+    }
   }
+
+  // Toggles the selection of a 'project' button, takes the title of the
+  // associated project as a string
+  function selectButton(projectTitle) {}
 
   // Adds listener to a project DOM element
   function addProjectListener(elem) {
@@ -653,6 +669,50 @@ export const todoManager = (function () {
     }
   }
 
+  // Storage management //
+
+  // Checks if storage has been previously populated
+  function checkStorage() {
+    if (
+      localStorage.getItem('todoList') ||
+      localStorage.getItem('projectList')
+    ) {
+      setLists();
+    }
+    console.log(
+      localStorage.getItem('todoList') || localStorage.getItem('projectList')
+    );
+  }
+
+  // Gets lists from local storage and assigns them to relevant variables,
+  // calls functions to render DOM objects
+  function setLists() {
+    if (localStorage.getItem('todoList')) {
+      linkedList = JSON.parse(localStorage.getItem('todoList'));
+      console.log(linkedList);
+      renderList();
+    }
+    if (localStorage.getItem('projectList')) {
+      projectLinkedList = JSON.parse(localStorage.getItem('projectList'));
+
+      let node = projectLinkedList.head;
+      while (node != null) {
+        displayController.createProjectElem(node.project, true);
+        node = node.next;
+      }
+    }
+  }
+
+  // Adds lists to local storage as JSON strings
+  function populateStorage() {
+    if (linkedList.head != null) {
+      localStorage.setItem('todoList', JSON.stringify(linkedList));
+    }
+    if (projectLinkedList.head != null) {
+      localStorage.setItem('projectList', JSON.stringify(projectLinkedList));
+    }
+  }
+
   return {
     todo,
     project,
@@ -669,5 +729,7 @@ export const todoManager = (function () {
     withinWeek,
     isOverdue,
     checkProjectDupe,
+    populateStorage,
+    checkStorage,
   };
 })();

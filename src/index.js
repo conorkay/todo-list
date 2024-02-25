@@ -151,20 +151,29 @@ newProjectForm.addEventListener('submit', (event) => {
 
   if (todoManager.checkProjectDupe(newProject)) {
     console.log(
-      newProject.title +
-        ' is already a project. Changing folder to ' +
+      "'" +
         newProject.title +
-        '.'
+        "' is already a project. Changing folder to '" +
+        newProject.title +
+        "'."
     );
+    todoManager.setCurrentProject(newProject.title);
+    todoManager.renderProjectList();
   } else {
     todoManager.createNewProjectNode(newProject);
     console.log('here');
-    displayController.createProjectElem(newProject);
+    displayController.createProjectElem(newProject, false);
   }
-
-  todoManager.setCurrentProject(newProject.title);
-  todoManager.renderProjectList();
 
   displayController.closeDialog(newItemDialog);
   displayController.clearInput(inputFields);
 });
+
+// Checks local storage and retrieves lists if they exist
+todoManager.checkStorage();
+
+// One page exit, assign current lists to local storage
+window.onbeforeunload = function () {
+  console.log('unload');
+  todoManager.populateStorage();
+};
