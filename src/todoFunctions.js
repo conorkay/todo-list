@@ -23,6 +23,22 @@ const todoContainer = document.getElementById('list-container');
 const projectList = document.getElementById('projectList');
 
 export const displayController = (function () {
+  // Stores the todo object that is being accessed by the edit button
+  var currEditTodo = null;
+
+  // Sets the currently edited todo
+  function setEditTodo(todo) {
+    currEditTodo = todo;
+  }
+
+  // Gets the currently edited todo
+  function getEditTodo() {
+    if (currEditTodo === null) {
+      console.log('Error: current todo is null');
+    }
+    return currEditTodo;
+  }
+
   // Clears all todo's from the DOM
   function clearTodos() {
     while (todoContainer.firstChild) {
@@ -143,7 +159,7 @@ export const displayController = (function () {
   function createProjectElem(project, isFromStorage) {
     const newBtn = document.createElement('button');
     newBtn.classList.add('projectBtn');
-    let titleStripped = project.title.replace(/\s/g, '');
+    let titleStripped = project.title.toLowerCase().replace(/\s/g, '');
     newBtn.id = titleStripped;
     newBtn.innerText = project.title;
     projectList.appendChild(newBtn);
@@ -160,7 +176,9 @@ export const displayController = (function () {
   // Toggles the selection of a 'project' button, takes the title of the
   // associated project as a string
   function toggleSelectButton(projectTitle) {
-    let titleStripped = projectTitle.replace(/\s/g, '');
+    console.log(projectTitle);
+    let titleStripped = projectTitle.toLowerCase().replace(/\s/g, '');
+    console.log(titleStripped);
     let button = document.getElementById(titleStripped);
 
     displayController.removeSelected(projectList.childNodes);
@@ -273,6 +291,7 @@ export const displayController = (function () {
     button.addEventListener('click', function (e) {
       console.log('edit');
       populateEditForm(button.parentNode.parentNode);
+      setEditTodo(button.parentNode.parentNode.todoObj);
       openDialog(editDialog);
     });
   }
@@ -332,8 +351,6 @@ export const displayController = (function () {
     editTitle.value = todo.title;
     editDescription.value = todo.description;
     editDate.value = todo.dueDate;
-
-    console.log(editPriority);
 
     if (editPriority === 'High') {
       highRadio.click();
@@ -424,6 +441,7 @@ export const displayController = (function () {
     enableButtonList,
     removeSelected,
     toggleSelectButton,
+    getEditTodo,
   };
 })();
 
@@ -438,13 +456,13 @@ export const todoManager = (function () {
   let currentProject = 'home';
 
   // to-do constructor
-  function todo(title, description, dueDate, priority, project) {
+  function todo(title, description, dueDate, priority, project, checked) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.project = project;
-    this.checked = false;
+    this.checked = checked;
   }
 
   // Project constructor
@@ -475,7 +493,7 @@ export const todoManager = (function () {
 
   // Takes a string, sets the current project to the new selection
   function setCurrentProject(newProject) {
-    currentProject = newProject;
+    currentProject = newProject.toLowerCase().replace(/\s/g, '');
   }
 
   function checkTodayProjectCondition(todo) {

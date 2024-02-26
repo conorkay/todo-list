@@ -8,6 +8,8 @@ const openFormBtn = document.getElementById('openFormBtn');
 const newTodoForm = document.getElementById('newTodoForm');
 // New project form
 const newProjectForm = document.getElementById('newProjectForm');
+// Edit todo form
+const editForm = document.getElementById('editForm');
 // Form x's
 const todoCross = document.getElementById('todoCross');
 const detailCross = document.getElementById('detailCross');
@@ -134,7 +136,8 @@ newTodoForm.addEventListener('submit', (event) => {
     event.currentTarget.details.value,
     event.currentTarget.date.value,
     event.currentTarget.priority.value,
-    todoProject
+    todoProject,
+    false
   );
 
   console.log(newTodo);
@@ -175,6 +178,31 @@ newProjectForm.addEventListener('submit', (event) => {
   }
 
   displayController.closeDialog(newItemDialog);
+  displayController.clearInput(inputFields);
+});
+
+// Listener for the edit form
+editForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  let todo = displayController.getEditTodo();
+  let todoProject = todo.project;
+  let checked = todo.checked;
+
+  let newTodo = new todoManager.todo(
+    event.currentTarget.editTitle.value,
+    event.currentTarget.editDetails.value,
+    event.currentTarget.editDate.value,
+    event.currentTarget.priority.value,
+    todoProject,
+    checked
+  );
+
+  todoManager.deleteTodoNode(todo);
+  todoManager.createNewNode(newTodo);
+  todoManager.renderProjectList();
+
+  displayController.closeDialog(editDialog);
   displayController.clearInput(inputFields);
 });
 
