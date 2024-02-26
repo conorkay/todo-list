@@ -158,6 +158,7 @@ newProjectForm.addEventListener('submit', (event) => {
         "'."
     );
     todoManager.setCurrentProject(newProject.title);
+    displayController.toggleSelectButton(newProject.title);
     todoManager.renderProjectList();
   } else {
     todoManager.createNewProjectNode(newProject);

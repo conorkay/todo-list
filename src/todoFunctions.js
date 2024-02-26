@@ -143,6 +143,8 @@ export const displayController = (function () {
   function createProjectElem(project, isFromStorage) {
     const newBtn = document.createElement('button');
     newBtn.classList.add('projectBtn');
+    let titleStripped = project.title.replace(/\s/g, '');
+    newBtn.id = titleStripped;
     newBtn.innerText = project.title;
     projectList.appendChild(newBtn);
     addProjectListener(newBtn);
@@ -150,27 +152,29 @@ export const displayController = (function () {
     // Set display to project of new button, disable button
     if (!isFromStorage) {
       todoManager.setCurrentProject(project.title);
-      displayController.removeSelected(projectList.childNodes);
-      newBtn.classList.toggle('selected');
-      displayController.disableButton(newBtn);
-      displayController.enableButtonList(newBtn, projectList.childNodes);
+      toggleSelectButton(project.title);
       todoManager.renderProjectList();
     }
   }
 
   // Toggles the selection of a 'project' button, takes the title of the
   // associated project as a string
-  function selectButton(projectTitle) {}
+  function toggleSelectButton(projectTitle) {
+    let titleStripped = projectTitle.replace(/\s/g, '');
+    let button = document.getElementById(titleStripped);
+
+    displayController.removeSelected(projectList.childNodes);
+    button.classList.toggle('selected');
+    displayController.disableButton(button);
+    displayController.enableButtonList(button, projectList.childNodes);
+  }
 
   // Adds listener to a project DOM element
   function addProjectListener(elem) {
     elem.addEventListener('click', function (e) {
       todoManager.setCurrentProject(elem.innerText);
       console.log(todoManager.getCurrentProject());
-      displayController.removeSelected(projectList.childNodes);
-      elem.classList.toggle('selected');
-      displayController.disableButton(elem);
-      displayController.enableButtonList(elem, projectList.childNodes);
+      toggleSelectButton(elem.innerText);
       todoManager.renderProjectList();
     });
   }
@@ -376,6 +380,7 @@ export const displayController = (function () {
     enableButton,
     enableButtonList,
     removeSelected,
+    toggleSelectButton,
   };
 })();
 
@@ -482,7 +487,7 @@ export const todoManager = (function () {
   // Checks for a duplicate project title in the list
   function checkProjectDupe(project) {
     let node = projectLinkedList.head;
-    let lowerTitle = project.title.toLowerCase();
+    let lowerTitle = project.title.toLowerCase().replace(/\s/g, '');
 
     if (
       lowerTitle === 'home' ||
@@ -493,7 +498,7 @@ export const todoManager = (function () {
       return true;
     }
     while (node != null) {
-      if (node.project.title.toLowerCase() === lowerTitle) {
+      if (node.project.title.toLowerCase().replace(/\s/g, '') === lowerTitle) {
         return true;
       }
       node = node.next;
