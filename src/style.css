@@ -163,6 +163,9 @@ h2 {
   width: 100%;
 }
 
+#newTodoBtn {
+  margin-top: 10px;
+}
 #newProjectForm {
   display: flex;
   flex-direction: column;
