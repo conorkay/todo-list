@@ -244,6 +244,13 @@ export const displayController = (function () {
     dueDate.textContent = convertDate(todo.dueDate);
     containerTwo.appendChild(dueDate);
 
+    // Edit button
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('editBtn');
+    editBtn.innerHTML = '<i class="fa-solid fa-pen-to-square fa-lg"></i>';
+    containerTwo.appendChild(editBtn);
+    addEditListener(editBtn);
+
     // Delete button with icon
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('todoDeleteBtn');
@@ -261,10 +268,19 @@ export const displayController = (function () {
     }
   }
 
+  // Adds a 'click' listener that displays the edit menu
+  function addEditListener(button) {
+    button.addEventListener('click', function (e) {
+      console.log('edit');
+      populateEditForm(button.parentNode.parentNode);
+      openDialog(editDialog);
+    });
+  }
+
   // Adds a 'click' listener that deletes the parent's parent element from DOM
-  function addRemoveListener(elem) {
-    elem.addEventListener('click', function (e) {
-      let todoElem = elem.parentNode.parentNode;
+  function addRemoveListener(button) {
+    button.addEventListener('click', function (e) {
+      let todoElem = button.parentNode.parentNode;
       todoManager.deleteTodoNode(todoElem.todoObj);
       todoElem.remove();
     });
@@ -299,6 +315,33 @@ export const displayController = (function () {
       // Selects second child of parent todoItem
       elem.parentNode.children[2].classList.toggle('todoTitleChecked');
     });
+  }
+
+  // Populate edit form with relevant todo information
+  function populateEditForm(todoElem) {
+    let todo = todoElem.todoObj;
+    let editForm = editDialog.children[1];
+    let editTitle = editForm.children[0].children[0];
+    let editDescription = editForm.children[0].children[1];
+    let editDate = editForm.children[0].children[2].children[1];
+    let highRadio = editForm.children[1].children[0].children[5];
+    let midRadio = editForm.children[1].children[0].children[3];
+    let lowRadio = editForm.children[1].children[0].children[1];
+    let editPriority = todo.priority;
+
+    editTitle.value = todo.title;
+    editDescription.value = todo.description;
+    editDate.value = todo.dueDate;
+
+    console.log(editPriority);
+
+    if (editPriority === 'High') {
+      highRadio.click();
+    } else if (editPriority === 'Mid') {
+      midRadio.click();
+    } else {
+      lowRadio.click();
+    }
   }
 
   // Converts a date to output format for todoElem

@@ -100,7 +100,8 @@ h2 {
 }
 
 #newItemDialog::backdrop,
-#detailDialog::backdrop {
+#detailDialog::backdrop,
+#editDialog::backdrop {
   background-color: #000;
   height: 100%;
   width: 100%;
@@ -182,7 +183,8 @@ h2 {
   resize: none;
 }
 
-#form-date-container {
+#form-date-container,
+#edit-form-date-container {
   display: flex;
   align-items: center;
   text-align: center;
@@ -194,17 +196,25 @@ h2 {
 }
 
 #date-container-text,
-#prio-container-text {
+#prio-container-text,
+#edit-date-container-text,
+#edit-prio-container-text {
   height: 100%;
   margin: 0;
   margin-left: 15px;
+}
+
+#edit-prio-container-text,
+#edit-date-container-text {
+  margin-left: 30px;
 }
 
 #projectHeader {
   font-size: 24px;
 }
 
-#form-button-container {
+#form-button-container,
+#edit-form-button-container {
   width: 100%;
   display: flex;
   align-items: center;
@@ -224,7 +234,8 @@ h2 {
 }
 
 #createTodo,
-#createProject {
+#createProject,
+#confirmEdit {
   margin-right: 20px;
   max-width: 200px;
   width: 70%;
@@ -237,7 +248,8 @@ h2 {
 }
 
 #title,
-#projectTitle {
+#projectTitle,
+#editTitle {
   margin-top: 10px;
 }
 
@@ -246,7 +258,8 @@ h2 {
 }
 
 #newItemDialog,
-#detailDialog {
+#detailDialog,
+#editDialog {
   position: absolute;
   width: 80%;
   max-width: 800px;
@@ -277,7 +290,8 @@ h2 {
 
 #openFormBtn:hover,
 #createTodo:hover,
-#createProject:hover {
+#createProject:hover,
+#confirmEdit:hover {
   background-color: #f6f6f6;
   color: #121212;
   border: 2px solid #a5c9ff;
@@ -303,7 +317,8 @@ input[type='radio'] {
   left: 1.9rem;
 }
 
-#radio-container {
+#radio-container,
+#edit-radio-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -380,7 +395,7 @@ input[type='radio']:checked + .highLabel {
 .inter-container-two {
   height: 100%;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   grid-template-rows: 100%;
   gap: 10px;
 }
@@ -446,8 +461,18 @@ input[type='radio']:checked + .highLabel {
 
 .todoDeleteBtn {
   color: #e03c32;
+  grid-column: 4;
+  grid-row: 1;
+}
+
+.editBtn {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  background-color: #d6e6ff;
+  border: none;
   grid-column: 3;
   grid-row: 1;
+  color: #000;
 }
 
 .detailBtnContainer {

@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-
+    
+    <script src="https://kit.fontawesome.com/5193548556.js" crossorigin="anonymous"></script>
     <title>ToDo List</title>
   </head>
   <body>
@@ -65,7 +62,7 @@
                 class="textInput"
                 maxlength="325"
                 rows="6"
-                placeholder="Details: At the park"
+                placeholder="Description: At the park"
               ></textarea>
               <div id="form-date-container">
                 <p id="date-container-text">Due Date:</p>
@@ -103,6 +100,67 @@
           </form>
         </div>
       </div>
+    </dialog>
+
+    <!-- Dialog for editing existing todo details-->
+    <dialog id="editDialog">
+      <div class="form-header">
+        <h2 class="form-h2">Edit Todo</h2>
+        <button id="editCross" class="cross">&cross;</button>
+      </div>
+      <form method="dialog" id="editForm">
+        <div id="formTextContainer">
+          <input
+            required
+            type="text"
+            placeholder="Title: Walk the dog"
+            id="editTitle"
+            name="editTitle"
+            class="textInput"
+            maxlength="60"
+          />
+          <textarea
+            name="editDetails"
+            id="editDetails"
+            class="textInput"
+            maxlength="325"
+            rows="6"
+            placeholder="Description"
+          ></textarea>
+          <div id="edit-form-date-container">
+            <p id="edit-date-container-text">Due Date:</p>
+            <input
+              required
+              id="editDate"
+              name="editDate"
+              class="dateInput"
+              type="date"
+              min = today;
+            />
+          </div>
+        </div>
+        <div id="edit-form-button-container">
+          <div id="edit-radio-container">              
+            <p id="edit-prio-container-text">Priority:</p>
+            <input
+              required
+              type="radio"
+              id="editLow"
+              name="priority"
+              value="Low"
+            />
+            <label for="low" class="lowLabel">Low</label>
+
+            <input type="radio" id="editMid" name="priority" value="Mid" />
+            <label for="mid" class="midLabel">Mid</label>
+
+            <input type="radio" id="editHigh" name="priority" value="High" />
+            <label for="high" class="highLabel">High</label>
+          </div>
+
+          <button id="confirmEdit" type="submit">Confirm</button>
+        </div>
+      </form>
     </dialog>
 
     <!-- Dialog for displaying todo details-->

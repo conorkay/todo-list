@@ -11,6 +11,7 @@ const newProjectForm = document.getElementById('newProjectForm');
 // Form x's
 const todoCross = document.getElementById('todoCross');
 const detailCross = document.getElementById('detailCross');
+const editCross = document.getElementById('editCross');
 // Form text fields
 const inputFields = document.querySelectorAll('.textInput, .dateInput');
 // Container for list of todo elements
@@ -19,6 +20,8 @@ const listContainer = document.getElementById('list-container');
 const newItemDialog = document.getElementById('newItemDialog');
 // Dialog that displays details
 const detailDialog = document.getElementById('detailDialog');
+// Dialog that displays edit form
+const editDialog = document.getElementById('editDialog');
 // Button that displays create todo
 const projectBtn = document.getElementById('newProjectBtn');
 // Button that displays create project
@@ -108,7 +111,12 @@ detailCross.addEventListener('click', function () {
   displayController.clearDetail();
 });
 
-// Listener for the 'create todo' button on the project form
+editCross.addEventListener('click', function (e) {
+  displayController.closeDialog(editCross.parentNode.parentNode);
+  displayController.clearInput(inputFields);
+});
+
+// Listener for the 'create todo' button on the todo form
 newTodoForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -173,7 +181,7 @@ newProjectForm.addEventListener('submit', (event) => {
 // Checks local storage and retrieves lists if they exist
 todoManager.checkStorage();
 
-// One page exit, assign current lists to local storage
+// On page exit, assign current lists to local storage
 window.onbeforeunload = function () {
   console.log('unload');
   todoManager.populateStorage();
