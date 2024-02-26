@@ -55,7 +55,7 @@ homeBtn.addEventListener('click', function (e) {
 
 // Listener for the 'day' project button
 dayBtn.addEventListener('click', function (e) {
-  todoManager.setCurrentProject('day');
+  todoManager.setCurrentProject('today');
   displayController.removeSelected(projectList.childNodes);
   dayBtn.classList.toggle('selected');
   displayController.disableButton(dayBtn);
@@ -65,7 +65,7 @@ dayBtn.addEventListener('click', function (e) {
 
 // Listener for the 'week' project button
 weekBtn.addEventListener('click', function (e) {
-  todoManager.setCurrentProject('week');
+  todoManager.setCurrentProject('thisweek');
   displayController.removeSelected(projectList.childNodes);
   weekBtn.classList.toggle('selected');
   displayController.disableButton(weekBtn);
@@ -168,7 +168,10 @@ newProjectForm.addEventListener('submit', (event) => {
         newProject.title +
         "'."
     );
-    todoManager.setCurrentProject(newProject.title);
+    todoManager.setCurrentProject(
+      newProject.title.toLowerCase().replace(/\s/g, '')
+    );
+    console.log(newProject.title);
     displayController.toggleSelectButton(newProject.title);
     todoManager.renderProjectList();
   } else {

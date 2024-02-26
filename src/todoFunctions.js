@@ -59,6 +59,7 @@ export const displayController = (function () {
 
   // Renders todo elements from a linked list that match a given project name
   function renderProjectTodos(linkedList, projectName) {
+    console.log(projectName);
     let node = linkedList.head;
     clearTodos();
 
@@ -69,7 +70,7 @@ export const displayController = (function () {
     }
 
     // If 'day' project is selected, only render todos due today
-    else if (projectName === 'day') {
+    else if (projectName === 'today') {
       while (node != null) {
         if (todoManager.compareDateToToday(node.todo.dueDate) === 0) {
           createTodoElem(node.todo);
@@ -80,7 +81,7 @@ export const displayController = (function () {
     }
 
     // If 'week' is selected, only render todos due within 7 days
-    else if (projectName === 'week') {
+    else if (projectName === 'thisweek') {
       while (node != null) {
         if (todoManager.withinWeek(node.todo.dueDate)) {
           createTodoElem(node.todo);
@@ -167,8 +168,8 @@ export const displayController = (function () {
 
     // Set display to project of new button, disable button
     if (!isFromStorage) {
-      todoManager.setCurrentProject(project.title);
-      toggleSelectButton(project.title);
+      todoManager.setCurrentProject(titleStripped);
+      toggleSelectButton(titleStripped);
       todoManager.renderProjectList();
     }
   }
@@ -179,6 +180,15 @@ export const displayController = (function () {
     console.log(projectTitle);
     let titleStripped = projectTitle.toLowerCase().replace(/\s/g, '');
     console.log(titleStripped);
+    if (titleStripped === 'home') {
+      titleStripped = 'homeBtn';
+    } else if (titleStripped === 'thisweek') {
+      titleStripped = 'weekBtn';
+    } else if (titleStripped === 'today') {
+      titleStripped = 'dayBtn';
+    } else if (titleStripped === 'overdue') {
+      titleStripped = 'overdueBtn';
+    }
     let button = document.getElementById(titleStripped);
 
     displayController.removeSelected(projectList.childNodes);
@@ -190,7 +200,9 @@ export const displayController = (function () {
   // Adds listener to a project DOM element
   function addProjectListener(elem) {
     elem.addEventListener('click', function (e) {
-      todoManager.setCurrentProject(elem.innerText);
+      todoManager.setCurrentProject(
+        elem.innerText.toLowerCase().replace(/\s/g, '')
+      );
       console.log(todoManager.getCurrentProject());
       toggleSelectButton(elem.innerText);
       todoManager.renderProjectList();
@@ -552,8 +564,8 @@ export const todoManager = (function () {
 
     if (
       lowerTitle === 'home' ||
-      lowerTitle === 'day' ||
-      lowerTitle === 'week' ||
+      lowerTitle === 'today' ||
+      lowerTitle === 'thisweek' ||
       lowerTitle === 'overdue'
     ) {
       return true;
