@@ -169,7 +169,8 @@ newProjectForm.addEventListener('submit', (event) => {
         "'."
     );
     todoManager.setCurrentProject(
-      newProject.title.toLowerCase().replace(/\s/g, '')
+      //newProject.title.toLowerCase().replace(/\s/g, '')
+      newProject.title
     );
     console.log(newProject.title);
     displayController.toggleSelectButton(newProject.title);

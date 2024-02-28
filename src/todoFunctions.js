@@ -105,7 +105,10 @@ export const displayController = (function () {
 
     // If custom project, only render todos that match said project
     while (node != null) {
-      if (node.todo.project.toLowerCase() === projectName.toLowerCase()) {
+      if (
+        node.todo.project.toLowerCase().replace(/\s/g, '') ===
+        projectName.toLowerCase().replace(/\s/g, '')
+      ) {
         createTodoElem(node.todo);
       }
       node = node.next;
@@ -168,7 +171,7 @@ export const displayController = (function () {
 
     // Set display to project of new button, disable button
     if (!isFromStorage) {
-      todoManager.setCurrentProject(titleStripped);
+      todoManager.setCurrentProject(project.title);
       toggleSelectButton(titleStripped);
       todoManager.renderProjectList();
     }
@@ -200,9 +203,7 @@ export const displayController = (function () {
   // Adds listener to a project DOM element
   function addProjectListener(elem) {
     elem.addEventListener('click', function (e) {
-      todoManager.setCurrentProject(
-        elem.innerText.toLowerCase().replace(/\s/g, '')
-      );
+      todoManager.setCurrentProject(elem.innerText);
       console.log(todoManager.getCurrentProject());
       toggleSelectButton(elem.innerText);
       todoManager.renderProjectList();
@@ -505,7 +506,7 @@ export const todoManager = (function () {
 
   // Takes a string, sets the current project to the new selection
   function setCurrentProject(newProject) {
-    currentProject = newProject.toLowerCase().replace(/\s/g, '');
+    currentProject = newProject;
   }
 
   function checkTodayProjectCondition(todo) {
@@ -783,9 +784,7 @@ export const todoManager = (function () {
 
   // Adds lists to local storage as JSON strings
   function populateStorage() {
-    if (linkedList.head != null) {
-      localStorage.setItem('todoList', JSON.stringify(linkedList));
-    }
+    localStorage.setItem('todoList', JSON.stringify(linkedList));
     if (projectLinkedList.head != null) {
       localStorage.setItem('projectList', JSON.stringify(projectLinkedList));
     }
